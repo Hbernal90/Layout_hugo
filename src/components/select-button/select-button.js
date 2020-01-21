@@ -2,7 +2,6 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
-import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 
@@ -16,16 +15,28 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function SelectButton({floor, handle}) {
-  
+export default function SelectButton({floors, handleSelect, floorSelected}) {
 
+  const classes = useStyles();
   return (
     <div>
+       
+       <FormControl className={classes.formControl}>
+        <InputLabel id="demo-simple-select-label">Floor</InputLabel>
+        <Select
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          value={floorSelected}
+          onChange={handleSelect}
+        >
         {
-            floor.map( (item, index)=>
+            floors.map( (item, index)=>
             <MenuItem key={index.toString()}value={item}>{item}</MenuItem>
           )
         }
+        </Select>
+      </FormControl>
+       
     </div>
   );
 }

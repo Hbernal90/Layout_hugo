@@ -3,4 +3,4 @@ export const employees = [
     { name: 'Axel Malagon', building: 'MDC', floor: 18 },
     { name: 'David Barajas', building: 'MDC', floor: 18 }
 ]
-export const  floors = [0]
+export const  floors = [0, 18, 24]
