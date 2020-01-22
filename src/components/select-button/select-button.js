@@ -15,22 +15,23 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function SelectButton({floors, handleSelect, floorSelected}) {
+export default function SelectButton({name, inputLabel, items, handleSelect, itemsSelected}) {
 
   const classes = useStyles();
   return (
     <div>
        
        <FormControl className={classes.formControl}>
-        <InputLabel id="demo-simple-select-label">Floor</InputLabel>
+        <InputLabel id="demo-simple-select-label">{inputLabel}</InputLabel>
         <Select
           labelId="demo-simple-select-label"
           id="demo-simple-select"
-          value={floorSelected}
+          value={itemsSelected}
           onChange={handleSelect}
+          name={name}
         >
         {
-            floors.map( (item, index)=>
+            items.map( (item, index)=>
             <MenuItem key={index.toString()}value={item}>{item}</MenuItem>
           )
         }
