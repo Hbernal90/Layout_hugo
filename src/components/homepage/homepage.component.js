@@ -1,9 +1,6 @@
-import React, { Component, useState } from 'react';
+import React, { Component } from 'react';
 import MaterialTable from 'material-table';
-import { employees, floors, locations, images } from '../../db/db';
-import layout24 from '../../assets/24.png';
-import layout18 from '../../assets/18.png';
-import layout0 from '../../assets/lobby.png';
+import { employees, floors, locations, sections } from '../../db/db';
 
 import SelectButton from '../select-button/select-button';
 
@@ -18,7 +15,9 @@ export class Homepage extends Component {
             floors: floors,
             floorSelected: 24,
             locations: locations,
-            locationSelected: "MDC"
+            locationSelected: "MDC",
+            sections: sections,
+            sectionSelected: "24-A"
         }
     }
 
@@ -26,30 +25,23 @@ export class Homepage extends Component {
         const { value, name } = event.target;
         console.log(value, name)
         this.setState({ [name]: value })
-        // const idField =  event.target.id;
-        // console.log(idField)
-
-        // this.setState( {
-        //     [idField]: event.target.value
-        // })
     }
 
     render() {
+        const src =`${this.state.floorSelected}/${this.state.sectionSelected}.png`;
         return (
+            
             <div className="homepage-container">
                 <SelectButton name='locationSelected' inputLabel={"Locations"} items={this.state.locations} handleSelect={this.handleSelect} itemsSelected={this.state.locationSelected} />
                 <SelectButton name='floorSelected'  inputLabel={"Floors"} items={this.state.floors} handleSelect={this.handleSelect} itemsSelected={this.state.floorSelected} />
-                <div className="homepage-image"> 
-                    {
-                        this.state.floorSelected === 24 ? <img src={layout24} alt="alt" /> :
-                        this.state.floorSelected === 18 ? <img src={layout18} alt="alt" /> :
-                        this.state.floorSelected === 0  ? <img src={layout0} alt="alt" /> : <div>ERROR</div>
-                    }
+                <SelectButton name='sectionSelected' inputLabel={"Section"} items={this.state.sections[this.state.floorSelected]} handleSelect={this.handleSelect} itemsSelected={this.state.sectionSelected} />
+                <div className="homepage-image">  
+                       <img src={src} alt="alt" /> 
                 </div>
                 <br />
                 <br /> <br /> <br />
                 <div className="">
-                    <MaterialTable
+                    <MaterialTable  
                         options={{
                             
                         }}
@@ -61,9 +53,7 @@ export class Homepage extends Component {
                         data={employees}
                         title="LAYOUT SYSTEM"
                     />
-
                 </div>
-
             </div>
         )
     }
