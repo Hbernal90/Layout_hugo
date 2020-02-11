@@ -25,6 +25,15 @@ export class Homepage extends Component {
         const { value, name } = event.target;
         console.log(value, name)
         this.setState({ [name]: value })
+        if(name === 'floorSelected'){
+            let defaultSection;
+            if(value == 0){
+                defaultSection = "Lobby-A"
+            } else {
+                defaultSection = value.toString() + "-A";
+            }
+            this.setState({sectionSelected: defaultSection})
+        }
     }
 
     render() {
