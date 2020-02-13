@@ -5,13 +5,10 @@ const INITIAL_STATE = {
         location: 'MDC',
         floor: '0',
         section: 'A'
-    },
-    get currentImage() {
-        return `${this.filters.location}-${this.filters.floor}-${this.filters.section}`
     }
 }
 
-export const homeReducer = (state = INITIAL_STATE, action) => {
+const homeReducer = (state = INITIAL_STATE, action) => {
     switch(action.type){
         case HomeActionTypes.FILTER_LOCATION:
             return {
@@ -21,3 +18,4 @@ export const homeReducer = (state = INITIAL_STATE, action) => {
     }
 }
 
+export default homeReducer;
