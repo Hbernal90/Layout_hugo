@@ -5,12 +5,12 @@ import storage from 'redux-persist/lib/storage';
 import homeReducer from './home/home.reducer';
 
 const persistConfig = {
-    key: 'filters',
+    key: 'root',
     storage,
-    whitelist: ['home']
+    whitelist: []
 }
 
 // TODO
-//const rootReducer = combineReducers({home: homeReducer})
+//const rootReducer = combineReducers({home: homeReducer,});
 
 export default persistReducer(persistConfig, homeReducer);

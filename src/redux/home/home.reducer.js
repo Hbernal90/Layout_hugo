@@ -15,6 +15,8 @@ const homeReducer = (state = INITIAL_STATE, action) => {
                 ...state,
                 filters: action.payload
             }
+        default:
+            return state;
     }
 }
 
