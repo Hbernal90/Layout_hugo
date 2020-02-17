@@ -1,0 +1,19 @@
+
+.homepage-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 90%;
+  margin: auto;
+  margin-top: 5%;
+
+  .homepage__image{
+      border: #e7792b;
+      background-color: #168bcd;
+
+      img{
+        width: 80vh;
+        height: auto;
+      }
+    }
+}
