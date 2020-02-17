@@ -7,7 +7,7 @@ import SelectButton from '../select-button/select-button';
 import { filterLocation } from '../../redux/home/home.action'
 
 
-import './homepage.styles.css';
+import './homepage.styles.scss';
 
 function Homepage({filterLocation, filters}) {
     const [state, setState] = useState({
@@ -56,7 +56,7 @@ function Homepage({filterLocation, filters}) {
             <SelectButton name='location' inputLabel={"Locations"} items={Object.keys(state.comboBox.locations)} handleSelect={handleSelect} itemsSelected={filters.location} />
             <SelectButton name='floor' inputLabel={"Floors"} items={Object.keys(state.comboBox.locations[filters.location].floors)} handleSelect={handleSelect} itemsSelected={filters.floor} />
             <SelectButton name='section' inputLabel={"Section"} items={state.comboBox.locations[filters.location].floors[filters.floor].sections} handleSelect={handleSelect} itemsSelected={filters.section} />
-            <div className="homepage-image">
+            <div className="homepage__image">
                 <img src={`${filters.floor}/${filters.floor}-${filters.section}.png`} alt="alt" />
             </div>
             <br />
