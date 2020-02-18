@@ -1,15 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux'
 import MaterialTable from 'material-table';
-import { employees } from '../../db/db';
+import { selectEmployeesByFloor } from '../../redux/home/home.selectors'
+//import { employees } from '../../db/db';
 
 import SelectButton from '../select-button/select-button';
-import { filterLocation } from '../../redux/home/home.action'
+import { filterLocation, fetchEmployeesStart } from '../../redux/home/home.action'
 
 
 import './homepage.styles.css';
 
-function Homepage({filterLocation, filters}) {
+function Homepage({filterLocation, fetchEmployeesStart, filters, employeesData}) {
+    useEffect(() => {
+        fetchEmployeesStart();
+    }, [fetchEmployeesStart]);
+
     const [state, setState] = useState({
         user: "Alfredo Sanchez",
         comboBox:{
@@ -68,10 +73,10 @@ function Homepage({filterLocation, filters}) {
                     }}
                     columns={[
                         { title: 'Name', field: 'name' },
-                        { title: 'Building', field: 'building' },
-                        { title: 'Floor', field: 'floor', type: 'numeric' }
+                        { title: 'Building', field: 'location.building' },
+                        { title: 'Floor', field: 'location.floor', type: 'numeric' }
                     ]}
-                    data={employees}
+                    data={employeesData}
                     title="LAYOUT SYSTEM"
                 />
             </div>
@@ -80,11 +85,13 @@ function Homepage({filterLocation, filters}) {
 }
 
 const mapDispatchToProps = dispatch => ({
-    filterLocation: (filters) => dispatch(filterLocation(filters))
+    filterLocation: (filters) => dispatch(filterLocation(filters)),
+    fetchEmployeesStart: () => dispatch(fetchEmployeesStart())
 });
 
 const mapStateToProps = state => ({
-        filters: state.filters
+        filters: state.filters,
+        employeesData: selectEmployeesByFloor(state)
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Homepage);
