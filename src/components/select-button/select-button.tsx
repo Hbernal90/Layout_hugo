@@ -4,6 +4,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
+import { ISelectButtonOptions } from '../../types/AppInterfaces'
 
 const useStyles = makeStyles(theme => ({
   formControl: {
@@ -15,7 +16,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function SelectButton({name, inputLabel, items, handleSelect, itemsSelected}) {
+export default function SelectButton({name, inputLabel, items, handleSelect, itemsSelected}: ISelectButtonOptions) {
 
   const classes = useStyles();
   return (
