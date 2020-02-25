@@ -1,7 +1,7 @@
 import { HomeActionTypes } from './home.types';
-import { IAppState, IActionTypes } from '../../types/AppInterfaces'
+import { IHomeActionTypes, IHomeReduxState } from '../../types/AppInterfaces'
 
-const INITIAL_STATE: IAppState = {
+const INITIAL_STATE: IHomeReduxState = {
     filters: {
         location: 'MDC',
         floor: '0',
@@ -11,7 +11,7 @@ const INITIAL_STATE: IAppState = {
     employeesData: []
 }
 
-const homeReducer = (state: IAppState = INITIAL_STATE, action: IActionTypes) => {
+const homeReducer = (state = INITIAL_STATE, action: IHomeActionTypes): IHomeReduxState  => {
     switch(action.type){
         case HomeActionTypes.FILTER_LOCATION:
             return {

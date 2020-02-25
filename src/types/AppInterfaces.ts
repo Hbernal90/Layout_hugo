@@ -1,10 +1,15 @@
 import { ChangeEvent } from 'react'
 import { WebStorage } from 'redux-persist'
+import rootReducer from '../redux/root-reducer'
+import { HomeActionTypes } from '../redux/home/home.types'
 
-export interface IAppState {
+export type IAppState = ReturnType<typeof rootReducer>;
+
+export interface IHomeReduxState {
     filters: IFilters,
     isFetching: boolean,
-    employeesData: IEmployeesData[]
+    employeesData: IEmployeesData[],
+    errorMessage?: string
 }
 
 export interface IHomeState {
@@ -43,10 +48,31 @@ export interface IFilters {
     section: string
 }
 
-export interface IActionTypes {
-    type: string,
-    payload: any
+//IHomeActionsTypes
+export interface IFilterLocationAction {
+    type: typeof HomeActionTypes.FILTER_LOCATION;
+    payload: IFilters
 }
+
+export interface IFetchEmployeesStartAction { 
+    type: typeof HomeActionTypes.FETCH_EMPLOYEES_START
+}
+
+export interface IFetchEmployeesSuccessAction {
+    type: typeof HomeActionTypes.FETCH_EMPLOYEES_SUCCESS,
+    payload: IEmployeesData[]
+}
+
+export interface IFetchEmployeesFailureAction {
+    type: typeof HomeActionTypes.FETCH_EMPLOYEES_FAILURE,
+    payload: string
+}
+
+export type IHomeActionTypes = 
+    | IFilterLocationAction
+    | IFetchEmployeesStartAction
+    | IFetchEmployeesSuccessAction
+    | IFetchEmployeesFailureAction;
 
 export interface IEmployeesData {
     name: string,

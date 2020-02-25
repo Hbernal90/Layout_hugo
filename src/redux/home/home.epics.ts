@@ -2,9 +2,9 @@ import { ofType, StateObservable, ActionsObservable } from 'redux-observable';
 import { HomeActionTypes } from './home.types'
 import { map, mergeMap } from 'rxjs/operators'
 import axios from 'axios'
-import { IActionTypes, IAppState } from '../../types/AppInterfaces'
+import { IHomeActionTypes, IAppState } from '../../types/AppInterfaces'
 
-export const loadEmployees = (action$: ActionsObservable<IActionTypes>) => action$.pipe (
+export const loadEmployees = (action$: ActionsObservable<IHomeActionTypes>) => action$.pipe (
     ofType(HomeActionTypes.FILTER_LOCATION),
     map(() => {
         return {
@@ -13,7 +13,7 @@ export const loadEmployees = (action$: ActionsObservable<IActionTypes>) => actio
     })
 )
 
-export const loadEmployeesAsync = (action$: ActionsObservable<IActionTypes>, state$: StateObservable<IAppState>) => action$.pipe (
+export const loadEmployeesAsync = (action$: ActionsObservable<IHomeActionTypes>, state$: StateObservable<IAppState>) => action$.pipe (
     ofType(HomeActionTypes.FETCH_EMPLOYEES_START),
     mergeMap(async () => {
         try {
