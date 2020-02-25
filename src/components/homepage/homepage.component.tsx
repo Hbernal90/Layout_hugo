@@ -1,22 +1,22 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, ChangeEvent } from 'react';
 import { connect } from 'react-redux'
 import MaterialTable from 'material-table';
 import { selectEmployeesByFloor } from '../../redux/home/home.selectors'
-//import { employees } from '../../db/db';
+import { Dispatch } from 'redux';
+import { IFilters, IAppState, IHomeState, IHomeOptions } from '../../types/AppInterfaces'
 
 import SelectButton from '../select-button/select-button';
 import { filterLocation, fetchEmployeesStart } from '../../redux/home/home.action'
 import Layout from '../layout/layout.component'
 
-
 import './homepage.styles.scss';
 
-function Homepage({filterLocation, fetchEmployeesStart, filters, employeesData}) {
+function Homepage({filterLocation, fetchEmployeesStart, filters, employeesData}: IHomeOptions) {
     useEffect(() => {
         fetchEmployeesStart();
     }, [fetchEmployeesStart]);
 
-    const [state, setState] = useState({
+    const [state, setState] = useState<IHomeState>({
         user: "Alfredo Sanchez",
         comboBox:{
             locations:{
@@ -50,10 +50,10 @@ function Homepage({filterLocation, fetchEmployeesStart, filters, employeesData})
         }
     })
 
-    function handleSelect(evt) {
+    const handleSelect = (event: ChangeEvent<HTMLSelectElement>): void => {
         filterLocation({
             ...filters,
-            [evt.target.name]: evt.target.value
+            [event.target.name]: event.target.value
         });
     }
 
@@ -75,8 +75,11 @@ function Homepage({filterLocation, fetchEmployeesStart, filters, employeesData})
                     }}
                     columns={[
                         { title: 'Name', field: 'name' },
+                        { title: 'Project', field: 'project' },
                         { title: 'Building', field: 'location.building' },
-                        { title: 'Floor', field: 'location.floor', type: 'numeric' }
+                        { title: 'Floor', field: 'location.floor' },
+                        { title: 'Section', field: 'location.section' },
+                        { title: 'Seat', field: 'location.seat' },
                     ]}
                     data={employeesData}
                     title="LAYOUT SYSTEM"
@@ -86,12 +89,12 @@ function Homepage({filterLocation, fetchEmployeesStart, filters, employeesData})
     )
 }
 
-const mapDispatchToProps = dispatch => ({
-    filterLocation: (filters) => dispatch(filterLocation(filters)),
+const mapDispatchToProps = (dispatch: Dispatch) => ({
+    filterLocation: (filters: IFilters) => dispatch(filterLocation(filters)),
     fetchEmployeesStart: () => dispatch(fetchEmployeesStart())
 });
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state: IAppState) => ({
         filters: state.filters,
         employeesData: selectEmployeesByFloor(state)
 });

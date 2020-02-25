@@ -1,24 +1,24 @@
-import { ofType } from 'redux-observable';
+import { ofType, StateObservable, ActionsObservable } from 'redux-observable';
 import { HomeActionTypes } from './home.types'
-import { mergeMap, map } from 'rxjs/operators'
+import { map, mergeMap } from 'rxjs/operators'
 import axios from 'axios'
+import { IHomeActionTypes, IAppState } from '../../types/AppInterfaces'
 
-/* export const loadEmployees = (action$) => action$.pipe (
+export const loadEmployees = (action$: ActionsObservable<IHomeActionTypes>) => action$.pipe (
     ofType(HomeActionTypes.FILTER_LOCATION),
     map(() => {
         return {
             type: HomeActionTypes.FETCH_EMPLOYEES_START
         };
     })
-) */
+)
 
-export const loadEmployeesAsync = (action$, state$) => action$.pipe (
+export const loadEmployeesAsync = (action$: ActionsObservable<IHomeActionTypes>, state$: StateObservable<IAppState>) => action$.pipe (
     ofType(HomeActionTypes.FETCH_EMPLOYEES_START),
     mergeMap(async () => {
         try {
             const res = await axios.get('https://layout-api.firebaseapp.com/employees');
             const employeesData = res.data;
-            console.log(employeesData)
             return {
                 type: HomeActionTypes.FETCH_EMPLOYEES_SUCCESS,
                 payload: employeesData,
