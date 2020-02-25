@@ -6,6 +6,7 @@ import { selectEmployeesByFloor } from '../../redux/home/home.selectors'
 
 import SelectButton from '../select-button/select-button';
 import { filterLocation, fetchEmployeesStart } from '../../redux/home/home.action'
+import Layout from '../layout/layout.component'
 
 
 import './homepage.styles.scss';
@@ -64,6 +65,7 @@ function Homepage({filterLocation, fetchEmployeesStart, filters, employeesData})
             <div className="homepage__image">
                 <img src={`${filters.floor}/${filters.floor}-${filters.section}.png`} alt="alt" />
             </div>
+            <Layout />
             <br />
             <br /> <br /> <br />
             <div className="">
