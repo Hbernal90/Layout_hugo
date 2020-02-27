@@ -1,7 +1,9 @@
 import { ChangeEvent } from 'react'
+import { Reducer, CombinedState } from 'redux'
 import { WebStorage } from 'redux-persist'
 import rootReducer from '../redux/root-reducer'
 import { HomeActionTypes } from '../redux/home/home.types'
+import { LayoutActionTypes } from '../redux/layout/layout.types';
 
 export type IAppState = ReturnType<typeof rootReducer>;
 
@@ -90,3 +92,57 @@ export interface IPersistConf {
     storage: WebStorage;
     whitelist: [];
 }
+
+export interface IRootReducer {
+    home: IHomeReduxState,
+    layout: ILayoutReduxState,
+}
+
+export type ICombinedState = CombinedState<IRootReducer>;
+
+export type IRootReducerType = Reducer<ICombinedState> | undefined;
+
+/* Board Interfaces */
+export interface ILayoutBlockProps {
+    row: number,
+    column: number,
+    board: Array<IBoard>,
+    addChairToLayout: (board: Array<IBoard>) => void
+}
+
+export interface ILayoutControlsProps {
+    board: Array<IBoard>,
+    addToLayout: (board: Array<IBoard>) => void,
+    removeFromLayout: (board: Array<IBoard>) => void
+}
+
+export interface ILayout {
+    board: Array<IBoard>
+}
+
+export interface ILayoutReduxState {
+    board: Array<IBoard>
+}
+
+export type IBoard = Array<IBoardElement>
+
+export interface IBoardElement {
+    chair: boolean
+}
+
+export interface IAddToLayout {
+    type: typeof LayoutActionTypes.ADD_TO_LAYOUT,
+    payload: Array<IBoard>
+}
+
+export interface IRemoveFromLayout {
+    type: typeof LayoutActionTypes.REMOVE_FROM_LAYOUT,
+    payload: Array<IBoard>
+}
+
+export interface IAddChairToLayout {
+    type: typeof LayoutActionTypes.ADD_CHAIR,
+    payload: Array<IBoard>
+}
+
+export type ILayoutActionTypes = IAddToLayout | IRemoveFromLayout | IAddChairToLayout;

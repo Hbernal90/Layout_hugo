@@ -1,9 +1,10 @@
-//import { combineReducers } from 'redux';
+import { combineReducers } from 'redux';
 import { persistReducer } from 'redux-persist'
 import storage from 'redux-persist/lib/storage';
 
 import homeReducer from './home/home.reducer';
-import { IPersistConf } from '../types/AppInterfaces'
+import layoutReducer from './layout/layouts.reducer';
+import { IPersistConf, IRootReducerType } from '../types/AppInterfaces'
 
 const persistConfig: IPersistConf = {
     key: 'root',
@@ -12,6 +13,6 @@ const persistConfig: IPersistConf = {
 }
 
 // TODO
-//const rootReducer = combineReducers({home: homeReducer,});
+const rootReducer : IRootReducerType = combineReducers({home: homeReducer, layout: layoutReducer});
 
-export default persistReducer(persistConfig, homeReducer);
+export default persistReducer(persistConfig, rootReducer);
