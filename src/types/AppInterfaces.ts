@@ -74,6 +74,8 @@ export type IHomeActionTypes =
     | IFetchEmployeesSuccessAction
     | IFetchEmployeesFailureAction;
 
+export type IAppActions  = | IHomeActionTypes;
+
 export interface IEmployeesData {
     name: string,
     project: string,
@@ -89,4 +91,14 @@ export interface IPersistConf {
     key: string;
     storage: WebStorage;
     whitelist: [];
+}
+
+export interface ILinkStateToProp {
+    filters: IFilters;
+    employeesData: IEmployeesData[];
+}
+
+export interface ILinkDispatchToProp {
+    filterLocation: (filters: IFilters) => void;
+    fetchEmployeesStart: () => void;
 }

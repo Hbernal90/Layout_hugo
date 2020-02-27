@@ -1,14 +1,14 @@
-import {createStore, applyMiddleware, Store } from 'redux'
-import { createEpicMiddleware } from 'redux-observable';
+import {createStore, applyMiddleware, Store, Middleware } from 'redux'
+import { createEpicMiddleware, EpicMiddleware } from 'redux-observable';
 import { rootEpic } from './root-epics'
 import rootReducer from './root-reducer'
 import { persistStore } from 'redux-persist';
 import logger from 'redux-logger'
-import { IAppState } from '../types/AppInterfaces'
+import { IAppState, IAppActions } from '../types/AppInterfaces'
 
-const epicMiddleware = createEpicMiddleware();
+const epicMiddleware = createEpicMiddleware<IAppActions>();
 
-const middlewares = [logger, epicMiddleware];
+const middlewares = [logger as Middleware, epicMiddleware as EpicMiddleware<IAppActions>];
 
 const store: Store<IAppState> = createStore(rootReducer, applyMiddleware(...middlewares));
 

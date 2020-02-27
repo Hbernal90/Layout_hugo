@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import MaterialTable from 'material-table';
 import { selectEmployeesByFloor } from '../../redux/home/home.selectors'
 import { Dispatch } from 'redux';
-import { IFilters, IAppState, IHomeState, IHomeOptions } from '../../types/AppInterfaces'
+import { IFilters, IAppState, IHomeState, IHomeOptions, IAppActions, ILinkDispatchToProp, ILinkStateToProp } from '../../types/AppInterfaces'
 
 import SelectButton from '../select-button/select-button';
 import { filterLocation, fetchEmployeesStart } from '../../redux/home/home.action'
@@ -87,12 +87,12 @@ function Homepage({filterLocation, fetchEmployeesStart, filters, employeesData}:
     )
 }
 
-const mapDispatchToProps = (dispatch: Dispatch) => ({
+const mapDispatchToProps = (dispatch: Dispatch<IAppActions>): ILinkDispatchToProp => ({
     filterLocation: (filters: IFilters) => dispatch(filterLocation(filters)),
     fetchEmployeesStart: () => dispatch(fetchEmployeesStart())
 });
 
-const mapStateToProps = (state: IAppState) => ({
+const mapStateToProps = (state: IAppState): ILinkStateToProp => ({
         filters: state.filters,
         employeesData: selectEmployeesByFloor(state)
 });
