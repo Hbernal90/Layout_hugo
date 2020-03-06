@@ -29,6 +29,11 @@ const LayoutReducer = (state = INITIAL_STATE, action: ILayoutActionTypes): ILayo
                 ...state,
                 board: action.payload
             }
+        case LayoutActionTypes.REMOVE_CHAIR:
+            return {
+                ...state,
+                board: action.payload
+            }
         default:
             return state;
     }

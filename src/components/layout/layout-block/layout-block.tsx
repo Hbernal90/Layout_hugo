@@ -1,34 +1,27 @@
 import React from 'react';
-import { Dispatch } from 'redux';
+/* import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 
 import { ILayoutBlockProps, IBoard, IAppState } from '../../../types/AppInterfaces'
-import { addChairToLayout } from '../../../redux/layout/layout.action';
+import { addChairToLayout } from '../../../redux/layout/layout.action'; */
+import LayoutChair from '../layout-elements/layout-chair';
 import './layout-block.scss'
 
-const LayoutBlock = (props : ILayoutBlockProps) => {
+interface option {
+    chair : boolean,
+    row: number,
+    column: number
+}
+
+const LayoutBlock = (props : option) => {
     
-    const { row, column, addChairToLayout, board } = props;
-    
-    const setChair = () => {
-        let newBoard = [...board];
-        newBoard[row][column].chair = !newBoard[row][column].chair;
-        addChairToLayout(newBoard);
-    }
+    const { chair, row, column } = props;
 
     return (
-        <div className="layout-block" onClick={setChair}>
-            {board[row][column].chair ? <div className="chair"></div> : null}
+        <div className="layout-block">
+            {chair ? <LayoutChair row={row} column={column}/> : null}
         </div>
     )
 }
 
-const mapDispatchToProps = (dispatch: Dispatch) => ({
-    addChairToLayout: (board: Array<IBoard>) => dispatch(addChairToLayout(board))
-})
-
-const mapStateToProps = (state: IAppState) => ({
-    board: state.layout.board
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(LayoutBlock);
+export default LayoutBlock;
