@@ -6,9 +6,8 @@ import Backend from 'react-dnd-html5-backend'
 
 import { IBoard, ILayout } from '../../types/AppInterfaces';
 import { addChairToLayout } from '../../redux/layout/layout.action';
-import { IAppState } from '../../types/AppInterfaces'
-import LayoutBlock from './layout-block/layout-block';
-import LayoutBoardBlock from './layout-board-block/layout-board-block'
+import { IAppState } from '../../types/AppInterfaces';
+import LayoutBoardBlock from './layout-board-block/layout-board-block';
 import LayoutControls from './layout-controls/layout-controls';
 import './layout.styles.scss';
 

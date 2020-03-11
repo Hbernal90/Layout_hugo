@@ -6,7 +6,8 @@ const INITIAL_STATE: ILayoutReduxState = {
     board: [
         [
             {
-                chair: false
+                display: false,
+                type: null
             }
         ]
     ]

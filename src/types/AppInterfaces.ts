@@ -70,10 +70,13 @@ export interface IFetchEmployeesFailureAction {
     payload: string
 }
 
-export interface ILayoutChair {
+export interface ILayoutElement {
     row?: number,
     column?: number,
     board?: Array<IBoard>,
+    display?: boolean,
+    control?: boolean,
+    type: string | null,
     removeChairFromLayout?: (board: Array<IBoard>) => void
 }
 
@@ -135,8 +138,15 @@ export interface ILayoutReduxState {
 export type IBoard = Array<IBoardElement>
 
 export interface IBoardElement {
-    chair: boolean
+    display: boolean,
+    type: string | null
 }
+
+export interface IDraggableElement {
+    row: number,
+    column: number,
+    type?: string
+  }
 
 export interface IAddToLayout {
     type: typeof LayoutActionTypes.ADD_TO_LAYOUT,

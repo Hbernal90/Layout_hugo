@@ -1,27 +1,56 @@
 import React from 'react';
-/* import { Dispatch } from 'redux';
+import { useDrag, DragSourceMonitor } from 'react-dnd';
+import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 
-import { ILayoutBlockProps, IBoard, IAppState } from '../../../types/AppInterfaces'
-import { addChairToLayout } from '../../../redux/layout/layout.action'; */
+import { IBoard, IAppState, ILayoutElement, IDraggableElement } from '../../../types/AppInterfaces'
+import { removeChairFromLayout } from '../../../redux/layout/layout.action';
 import LayoutChair from '../layout-elements/layout-chair';
-import './layout-block.scss'
+import { LayoutTypes } from '../layout-elements/layout-types/layout-types';
 
-interface option {
-    chair : boolean,
-    row: number,
-    column: number
-}
+const LayoutBlock : React.FunctionComponent<ILayoutElement> =  ({ row = -1, column = -1, board, display, removeChairFromLayout, type, control }) => {
 
-const LayoutBlock = (props : option) => {
-    
-    const { chair, row, column } = props;
+    const [{ isDragging }, drag] = useDrag({
+        item: { type: LayoutTypes.CHAIR, row, column },
+        end(item: IDraggableElement | undefined, monitor: DragSourceMonitor) {
+            if (item && monitor.didDrop()) {
+                if (item.column !== -1 && item.row !== -1) {
+                    const newBoard = board ? [...board] : null;
+                    if (!!newBoard) {
+                        newBoard[item.row][item.column].display = false;
+                        if (removeChairFromLayout)
+                            removeChairFromLayout(newBoard);
+                    }
+                }
+            }
+        },
+        collect: monitor => ({
+            isDragging: !!monitor.isDragging()
+        }),
+    })
+
+    const displayComponent = () => {
+        switch(type){
+            case LayoutTypes.CHAIR:
+                return <LayoutChair/>
+            default:
+                return null
+        }
+    } 
 
     return (
-        <div className="layout-block">
-            {chair ? <LayoutChair row={row} column={column}/> : null}
-        </div>
+        <span ref={drag} style={{ opacity: isDragging ? 0.5 : 1, }}>
+            { display || control ? displayComponent() : null }
+        </span>
     )
 }
 
-export default LayoutBlock;
+const mapDispatchToProps = (dispatch: Dispatch) => ({
+    removeChairFromLayout: (board: Array<IBoard>) => dispatch(removeChairFromLayout(board))
+})
+
+const mapStateToProps = (state: IAppState) => ({
+    board: state.layout.board
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(LayoutBlock);

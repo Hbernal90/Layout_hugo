@@ -17,11 +17,11 @@ const LayoutControls = ({board, addToLayout, removeFromLayout} : ILayoutControls
         let newElement: IBoard = []
         if (name === "columns") {
             newBoard.map(element => {
-                return element.push({ chair: false })
+                return element.push({ display: false, type: null })
             })
         } else {
             newBoard[0].map(() => {
-                return newElement.push({ chair: false })
+                return newElement.push({ display: false, type: null })
             })
             newBoard.push(newElement);
         }

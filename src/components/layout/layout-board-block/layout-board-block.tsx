@@ -1,59 +1,52 @@
 import React from 'react';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
-import { useDrop } from 'react-dnd'
+import { useDrop, DragObjectWithType } from 'react-dnd'
 
 import { ILayoutBlockProps, IBoard, IAppState } from '../../../types/AppInterfaces'
 import LayoutBlock from '../layout-block/layout-block'
 import { LayoutTypes } from '../layout-elements/layout-types/layout-types'
 import { addChairToLayout, removeChairFromLayout } from '../../../redux/layout/layout.action'
 
-const LayoutBoardBlock = (props : ILayoutBlockProps) => {
+import './layout-board-block.scss';
 
-  const { row, column, addChairToLayout, board, removeChairFromLayout } = props;
+const LayoutBoardBlock = (props: ILayoutBlockProps) => {
 
-    const setChair = () => {
+    const { row, column, addChairToLayout, board, removeChairFromLayout } = props;
+
+    const setChair = (obj : DragObjectWithType) => {
         let newBoard = [...board];
-        if( newBoard[row][column].chair === false ) {
-          newBoard[row][column].chair =  true;
+        if (newBoard[row][column].display === false) {
+            newBoard[row][column].display = true;
+            newBoard[row][column].type = (obj.type).toString();
         }
         addChairToLayout(newBoard);
     }
 
     const removeChair = () => {
-      let newBoard = [...board];
-      newBoard[row][column].chair =  false;
-      removeChairFromLayout(newBoard);
+        let newBoard = [...board];
+        newBoard[row][column].display = false;
+        newBoard[row][column].type = null;
+        removeChairFromLayout(newBoard);
     }
 
     const isDroppable = () => {
-        return !board[row][column].chair;
+        return !board[row][column].display;
     }
 
-    const [{ isOver }, drop] = useDrop({
+    const [, drop] = useDrop({
         accept: LayoutTypes.CHAIR,
-        drop: () => setChair(),
+        drop: (obj) => setChair(obj),
         canDrop: () => isDroppable(),
         collect: monitor => ({
-          isOver: !!monitor.isOver(),
-          canDrop: !!monitor.canDrop()
+            isOver: !!monitor.isOver(),
+            canDrop: !!monitor.canDrop()
         })
     })
 
     return (
-        <div
-            ref={drop}
-            style={{
-                position: 'relative',
-                width: '100%',
-                height: '100%',
-            }}
-            onDoubleClick={removeChair}
-        >
-            <LayoutBlock chair = {board[row][column].chair} row={row} column={column}/>
-            {/* {isOver && !canDrop && <Overlay color="red" />}
-            {!isOver && canDrop && <Overlay color="yellow" />}
-            {isOver && canDrop && <Overlay color="green" />} */}
+        <div ref={drop} onDoubleClick={removeChair} className="layout-block">
+            <LayoutBlock display={board[row][column].display} type={board[row][column].type} row={row} column={column} />
         </div>
     )
 }

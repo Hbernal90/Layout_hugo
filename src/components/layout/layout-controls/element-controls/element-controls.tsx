@@ -1,31 +1,18 @@
 import React from 'react';
 
-import LayoutChair from '../../layout-elements/layout-chair';
-import { FormGroup, FormControl, FormControlLabel, FormLabel, Checkbox } from '@material-ui/core';
+import LayoutBlock from '../../layout-block/layout-block';
+import { LayoutTypes } from '../../layout-elements/layout-types/layout-types';
+import { FormGroup, FormControl, FormControlLabel, FormLabel } from '@material-ui/core';
 
-const ElementControls = (props: any) => {
-
-    const elements = ['chair', 'wall'];
+const ElementControls = () => {
 
     return (
         <FormControl component="fieldset">
             <FormLabel component="legend">Element Types</FormLabel>
             <FormGroup aria-label="positon" row>
-                {/* <FormControlLabel
-                    value="Chair"
-                    control={<Checkbox color="primary" />}
-                    label="Chair"
-                    labelPlacement="start"
-                />
-                <FormControlLabel
-                    value="Wall"
-                    control={<Checkbox color="primary" />}
-                    label="Wall"
-                    labelPlacement="start"
-                /> */}
                 <FormControlLabel
                     value="Chair"
-                    control={<LayoutChair />}
+                    control={<LayoutBlock type={LayoutTypes.CHAIR} control/>}
                     label="Chair "
                     labelPlacement="start"
                 />
