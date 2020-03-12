@@ -2,6 +2,7 @@ import React from 'react';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
 
+import ElementControls from './element-controls/element-controls';
 import { IAppState, IBoard, ILayoutControlsProps } from '../../../types/AppInterfaces';
 import { addToLayout, removeFromLayout } from '../../../redux/layout/layout.action';
 import { Button } from '@material-ui/core';
@@ -16,11 +17,11 @@ const LayoutControls = ({board, addToLayout, removeFromLayout} : ILayoutControls
         let newElement: IBoard = []
         if (name === "columns") {
             newBoard.map(element => {
-                return element.push({ chair: false })
+                return element.push({ display: false, type: null })
             })
         } else {
             newBoard[0].map(() => {
-                return newElement.push({ chair: false })
+                return newElement.push({ display: false, type: null })
             })
             newBoard.push(newElement);
         }
@@ -37,40 +38,48 @@ const LayoutControls = ({board, addToLayout, removeFromLayout} : ILayoutControls
         } else if (name === "rows" && newBoard.length - 1 >= 1) {
             newBoard.pop();
         }
-        removeFromLayout(board)
+        removeFromLayout(newBoard)
     }
 
     return (
-        <div>
-            <label>Rows: </label>
-            <Button size="small" variant="contained" color="primary"
-                name="rows" onClick={(evt) => decreaseDimension("rows")}>
-                -
-            </Button>
-            <div className="Number">
-                {board.length}
+        <section className="controls__input">
+            <div className="input__field">
+                <label>Rows: </label>
+                <Button size="small" variant="contained" color="primary"
+                    name="rows" onClick={(evt) => decreaseDimension("rows")}>
+                    -
+                </Button>
+                <div className="Number">
+                    {board.length}
+                </div>
+                <Button size="small" variant="contained" color="primary"
+                    name="rows" onClick={() => changeDimension("rows")}>
+                    +
+                </Button>
             </div>
-            <Button size="small" variant="contained" color="primary"
-                name="rows" onClick={() => changeDimension("rows")}>
-                +
-            </Button>
+            
 
-            <hr></hr>
+            <div className="input__field">
+                <label>Columns: </label>
+                <Button size="small" variant="contained" color="primary"
+                    name="columns" onClick={(evt) => decreaseDimension("columns")}>
+                    -
+                </Button>
+                <div className="Number">
+                    {board[0].length}
+                </div>
 
-            <label>Columns: </label>
-            <Button size="small" variant="contained" color="primary"
-                name="columns" onClick={(evt) => decreaseDimension("columns")}>
-                -
-            </Button>
-            <div className="Number">
-                {board[0].length}
+                <Button size="small" variant="contained" color="primary"
+                    name="columns" onClick={() => changeDimension("columns")}>
+                    +
+                </Button>
             </div>
 
-            <Button size="small" variant="contained" color="primary"
-                name="columns" onClick={() => changeDimension("columns")}>
-                +
-            </Button>
-        </div>
+            <div className="input__field">
+                <div></div>
+                <ElementControls />
+            </div>
+        </section>
     )
 }
 

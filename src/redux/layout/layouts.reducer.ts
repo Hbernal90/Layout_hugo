@@ -6,7 +6,8 @@ const INITIAL_STATE: ILayoutReduxState = {
     board: [
         [
             {
-                chair: false
+                display: false,
+                type: null
             }
         ]
     ]
@@ -25,6 +26,11 @@ const LayoutReducer = (state = INITIAL_STATE, action: ILayoutActionTypes): ILayo
                 board: action.payload
             };
         case LayoutActionTypes.ADD_CHAIR:
+            return {
+                ...state,
+                board: action.payload
+            }
+        case LayoutActionTypes.REMOVE_CHAIR:
             return {
                 ...state,
                 board: action.payload

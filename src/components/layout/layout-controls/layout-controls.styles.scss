@@ -1,6 +1,15 @@
 
-.Number {
-    display: inline-block;
-    margin-left: 15px;
-    margin-right: 15px;
-}
+.controls__input {
+    display: flex;
+    flex-direction: column;
+
+    .input__field {
+        padding: 20px;
+
+        .Number {
+            display: inline-block;
+            margin-left: 15px;
+            margin-right: 15px;
+        }
+    }
+} 

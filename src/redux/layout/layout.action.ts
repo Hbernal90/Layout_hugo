@@ -16,3 +16,8 @@ export const addChairToLayout = (layout: Array<IBoard>) => ({
     type: LayoutActionTypes.ADD_CHAIR,
     payload: layout
 })
+
+export const removeChairFromLayout = (layout: Array<IBoard>) => ({
+    type: LayoutActionTypes.REMOVE_CHAIR,
+    payload: layout
+})

@@ -40,7 +40,7 @@ export interface ISelectButtonOptions {
     name: string;
     inputLabel: string;
     items: string[];
-    handleSelect: (event: ChangeEvent<any>)=> void;
+    handleSelect: (event: ChangeEvent<any>) => void;
     itemsSelected: string;
 }
 
@@ -56,7 +56,7 @@ export interface IFilterLocationAction {
     payload: IFilters
 }
 
-export interface IFetchEmployeesStartAction { 
+export interface IFetchEmployeesStartAction {
     type: typeof HomeActionTypes.FETCH_EMPLOYEES_START
 }
 
@@ -70,7 +70,17 @@ export interface IFetchEmployeesFailureAction {
     payload: string
 }
 
-export type IHomeActionTypes = 
+export interface ILayoutElement {
+    row?: number,
+    column?: number,
+    board?: Array<IBoard>,
+    display?: boolean,
+    control?: boolean,
+    type: string | null,
+    removeChairFromLayout?: (board: Array<IBoard>) => void
+}
+
+export type IHomeActionTypes =
     | IFilterLocationAction
     | IFetchEmployeesStartAction
     | IFetchEmployeesSuccessAction
@@ -107,7 +117,8 @@ export interface ILayoutBlockProps {
     row: number,
     column: number,
     board: Array<IBoard>,
-    addChairToLayout: (board: Array<IBoard>) => void
+    addChairToLayout: (board: Array<IBoard>) => void,
+    removeChairFromLayout: (board: Array<IBoard>) => void
 }
 
 export interface ILayoutControlsProps {
@@ -127,8 +138,15 @@ export interface ILayoutReduxState {
 export type IBoard = Array<IBoardElement>
 
 export interface IBoardElement {
-    chair: boolean
+    display: boolean,
+    type: string | null
 }
+
+export interface IDraggableElement {
+    row: number,
+    column: number,
+    type?: string
+  }
 
 export interface IAddToLayout {
     type: typeof LayoutActionTypes.ADD_TO_LAYOUT,
@@ -145,4 +163,9 @@ export interface IAddChairToLayout {
     payload: Array<IBoard>
 }
 
-export type ILayoutActionTypes = IAddToLayout | IRemoveFromLayout | IAddChairToLayout;
+export interface IRemoveChairFromLayout {
+    type: typeof LayoutActionTypes.REMOVE_CHAIR,
+    payload: Array<IBoard>
+}
+
+export type ILayoutActionTypes = IAddToLayout | IRemoveFromLayout | IAddChairToLayout | IRemoveChairFromLayout;

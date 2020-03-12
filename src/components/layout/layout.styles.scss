@@ -6,16 +6,16 @@
 
     .block__board {
         width: 70%;
-        height: 700px; 
-        padding: 20px;
+        height: 700px;
+        border: 1px solid black;
+        border-right: 0px;
         box-sizing: border-box;
+        overflow: auto;
 
         .board {
             display: grid;
             //grid-template-columns: 50px 50px 50px;
             grid-template-rows: 50px;
-            overflow-x: auto;
-            overflow-y: auto;
         }
     }
 
