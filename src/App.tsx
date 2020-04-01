@@ -6,7 +6,7 @@ import './App.scss';
 
 function App() {
   return (
-    <div className="App">
+    <div className="App" data-test="appComponent">
      <Homepage/>
     </div>
   );
