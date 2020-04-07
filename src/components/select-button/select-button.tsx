@@ -20,7 +20,7 @@ export default function SelectButton({name, inputLabel, items, handleSelect, ite
 
   const classes = useStyles();
   return (
-    <div>
+    <div data-test="selectButton">
        
        <FormControl className={classes.formControl}>
         <InputLabel id="demo-simple-select-label">{inputLabel}</InputLabel>
