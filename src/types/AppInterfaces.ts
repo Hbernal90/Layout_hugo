@@ -1,5 +1,5 @@
 import { ChangeEvent } from 'react'
-import { Reducer, CombinedState } from 'redux'
+import { Reducer, CombinedState, Store } from 'redux'
 import { WebStorage } from 'redux-persist'
 import rootReducer from '../redux/root-reducer'
 import { HomeActionTypes } from '../redux/home/home.types'
@@ -33,7 +33,8 @@ export interface IHomeOptions {
     filterLocation: (filters: IFilters) => void,
     fetchEmployeesStart: () => void,
     filters: IFilters,
-    employeesData: IEmployeesData[]
+    employeesData: IEmployeesData[],
+    store?: Store<IAppState>
 }
 
 export interface ISelectButtonOptions {
