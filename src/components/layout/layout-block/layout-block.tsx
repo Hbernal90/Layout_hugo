@@ -18,6 +18,7 @@ const LayoutBlock : React.FunctionComponent<ILayoutElement> =  ({ row = -1, colu
                     const newBoard = board ? [...board] : null;
                     if (!!newBoard) {
                         newBoard[item.row][item.column].display = false;
+                        newBoard[item.row][item.column].type = null;
                         if (removeChairFromLayout)
                             removeChairFromLayout(newBoard);
                     }
