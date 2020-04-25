@@ -1,0 +1,28 @@
+.navBar {
+    display: flex;
+    width: 100%;
+    height: 100px;
+    border-bottom: 1px solid black;
+    align-items: center;
+    
+    .Logo {
+        margin-left: 10%;
+        width: 300px;
+        a{
+            width: inherit;
+            img {
+                width: inherit;
+            }
+        }
+    }
+}
+
+.Logo {
+    width: 140px;
+    a{
+        width: inherit;
+        img {
+            width: inherit;
+        }
+    }
+}
