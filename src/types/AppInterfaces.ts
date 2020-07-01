@@ -14,6 +14,12 @@ export interface IHomeReduxState {
     errorMessage?: string
 }
 
+export interface ISidebarButtonOptions{
+    title: string,
+    link: string,
+    className?: string
+}
+
 export interface IHomeState {
     user: string,
     comboBox: {

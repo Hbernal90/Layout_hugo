@@ -15,7 +15,7 @@ function App() {
     <div className="App" data-test="appComponent">
       <Header/>
       <Switch>
-        <Route exact path="/" component={Container(Homepage)} />
+        <Route exact path="/" component={Homepage} />
         <Route exact path="/assign" component={Container(Layout)} />
       </Switch>
       <Footer/>

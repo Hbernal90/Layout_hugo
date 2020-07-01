@@ -1,14 +1,14 @@
 
 .homepage-container{
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: center;
   width: 100%;
   margin: auto;
-  margin-top: 5%;
-
+  max-width: 1500px;
+  margin: 20px auto;
   .homepage-filters {
-    display: flex;
+    display: none;
     flex-direction: row;
     margin-bottom: 20px;
     justify-content: center; 
@@ -16,11 +16,39 @@
 
   .homepage__image{
       border: #e7792b;
-      background-color: #168bcd;
-
+      background-color: #f3f3f3;
+      width: 100%;
+      flex: 0.75;
+      display: flex;
       img{
-        width: 80vh;
-        height: auto;
+        max-width: 100%;
+        max-height: 100%;
+        margin: auto;
       }
     }
+  
+    .homepage-sidebar {
+      width: 100%;
+      flex: 0.25;
+      background-color: #f0f0f0;
+
+      .sidebarButton {
+        background-color: #3A506B;    
+        width: 70%;
+        margin: 20px auto;
+        border-radius: 15px;
+        height: 55px;
+        a {
+          color: white;
+          text-decoration: none;
+          line-height: 55px;
+          font-weight: bold;
+        }
+      }
+
+      .sidebarButton.new {
+        background-color: #A8B85A;
+      }
+    }
+
 }

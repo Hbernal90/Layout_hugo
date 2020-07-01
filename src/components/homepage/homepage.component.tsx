@@ -6,6 +6,7 @@ import { Dispatch } from 'redux';
 import { IFilters, IHomeState, IHomeOptions, IAppState } from '../../types/AppInterfaces'
 
 import SelectButton from '../select-button/select-button';
+import Sidebar from './homepage-sidebar.component';
 import { filterLocation, fetchEmployeesStart } from '../../redux/home/home.action';
 
 import './homepage.styles.scss';
@@ -15,7 +16,7 @@ function Homepage({ filterLocation, fetchEmployeesStart, filters, employeesData 
         fetchEmployeesStart();
     }, [fetchEmployeesStart]);
 
-    const [state, ] = useState<IHomeState>({
+    const [state,] = useState<IHomeState>({
         user: "Alfredo Sanchez",
         comboBox: {
             locations: {
@@ -58,21 +59,23 @@ function Homepage({ filterLocation, fetchEmployeesStart, filters, employeesData 
 
     return (
         <div className="homepage-container" data-test="homepageContainer">
-            <div className="homepage-filters">
-                <SelectButton data-test="locationsSelectButton" name='location' inputLabel={"Locations"}
-                    items={Object.keys(state.comboBox.locations)} handleSelect={handleSelect} itemsSelected={filters.location} />
-                <SelectButton data-test="floorsSelectButton" name='floor' inputLabel={"Floors"}
-                    items={Object.keys(state.comboBox.locations[filters.location].floors)} handleSelect={handleSelect} itemsSelected={filters.floor} />
-                <SelectButton data-test="sectionsSelectButton" name='section' inputLabel={"Section"}
-                    items={state.comboBox.locations[filters.location].floors[filters.floor].sections} handleSelect={handleSelect} itemsSelected={filters.section} />
-
-            </div>
+            <Sidebar/>
             <div className="homepage__image">
                 <img src={`${filters.floor}/${filters.floor}-${filters.section}.png`} alt="alt" />
             </div>
-            <br />
+
+            {/*
+                        <div className="homepage-filters">
+                <SelectButton data-test="locationsSelectButton" name='location' inputLabel="Locations"
+                    items={Object.keys(state.comboBox.locations)} handleSelect={handleSelect} itemsSelected={filters.location} />
+                <SelectButton data-test="floorsSelectButton" name='floor' inputLabel="Floors"
+                    items={Object.keys(state.comboBox.locations[filters.location].floors)} handleSelect={handleSelect} itemsSelected={filters.floor} />
+                <SelectButton data-test="sectionsSelectButton" name='section' inputLabel="Section"
+                    items={state.comboBox.locations[filters.location].floors[filters.floor].sections} handleSelect={handleSelect} itemsSelected={filters.section} />
+
+            </div>
+            
             <br /> <br /> <br />
-            <div className="">
                 <MaterialTable
                     options={{
 
@@ -87,8 +90,7 @@ function Homepage({ filterLocation, fetchEmployeesStart, filters, employeesData 
                     ]}
                     data={employeesData}
                     title="LAYOUT SYSTEM"
-                />
-            </div>
+                /> */}
         </div>
     )
 }
