@@ -7,6 +7,7 @@ import { IFilters, IHomeState, IHomeOptions, IAppState } from '../../types/AppIn
 
 import SelectButton from '../select-button/select-button';
 import Sidebar from './homepage-sidebar.component';
+import BuildingImages from "./buildingImages.component";
 import { filterLocation, fetchEmployeesStart } from '../../redux/home/home.action';
 
 import './homepage.styles.scss';
@@ -60,9 +61,10 @@ function Homepage({ filterLocation, fetchEmployeesStart, filters, employeesData 
     return (
         <div className="homepage-container" data-test="homepageContainer">
             <Sidebar/>
-            <div className="homepage__image">
+            <BuildingImages/>
+            {/* <div className="homepage__image">
                 <img src={`${filters.floor}/${filters.floor}-${filters.section}.png`} alt="alt" />
-            </div>
+            </div> */}
 
             {/*
                         <div className="homepage-filters">

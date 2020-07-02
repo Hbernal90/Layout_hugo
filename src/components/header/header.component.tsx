@@ -8,6 +8,7 @@ import { Link } from 'react-router-dom';
 import SettingsIcon from "@material-ui/icons/Settings";
 import './header.styles.scss';
 import apexLogo from '../../assets/apex-logo.png';
+import apexMinLogo from "../../assets/apex-min-logo.png";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -31,9 +32,22 @@ const useStyles = makeStyles((theme: Theme) =>
             flex: 0.1,
         },
         Logo: {
+            display: "inline-block",
             maxWidth: "100%",
             maxHeight: "100%",
-            minWidth: "150px"
+            minWidth: "150px",
+            [theme.breakpoints.down("xs")]:{
+                display:"none"
+            }
+        },
+        minLogo: {
+            display: "none",
+            width: "100%",
+            height: "auto",
+            minWidth: "70px",
+            [theme.breakpoints.down("xs")]:{
+                display:"block"
+            }
         },
         navigation: {
             display: 'inline-flex', 
@@ -73,6 +87,9 @@ const useStyles = makeStyles((theme: Theme) =>
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
+            [theme.breakpoints.down("xs")]:{
+                padding: 0,
+            }
         },
         inputRoot: {
             color: 'inherit',
@@ -94,7 +111,11 @@ const useStyles = makeStyles((theme: Theme) =>
         gearButton:{
             width: "40px",
             height: "40px",
-            cursor: "pointer"
+            cursor: "pointer",
+            [theme.breakpoints.down("xs")]:{
+                width: "30px",
+                height: "30px"
+            }
         },
         profileButton: {
             width: "60px",
@@ -104,7 +125,14 @@ const useStyles = makeStyles((theme: Theme) =>
             color: "#FFFFFF",
             cursor: "pointer",
             fontSize: "25px",
-            lineHeight: "60px"
+            lineHeight: "60px",
+            [theme.breakpoints.down("xs")]:{
+                width: "40px",
+                height: "40px",
+                borderRadius: "20px",
+                lineHeight: "40px",
+                fontSize: "18px"
+            }
         }
     }),
 );
@@ -120,6 +148,7 @@ const Header = () => {
                     <div className={classes.toolBar}>
                         <Link to="/">
                             <img className={classes.Logo} src={apexLogo} alt="APEX" />
+                            <img src={apexMinLogo} alt="APEX" className={classes.minLogo}/>
                         </Link>
                     </div>
                     <div className={classes.search}>

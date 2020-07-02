@@ -1,12 +1,29 @@
+$screen-md: 800px;
+$screen-lg: 1100px; 
+// Mixins
+@mixin xs{
+  @media(max-width: $screen-md){
+    @content
+  }
+}
+
+@mixin lg{
+  @media(max-width: $screen-lg){
+    @content
+  }
+}
+
+
 
 .homepage-container{
   display: flex;
   flex-direction: row;
   justify-content: center;
   width: 100%;
-  margin: auto;
+  margin: auto; 
   max-width: 1500px;
   margin: 20px auto;
+
   .homepage-filters {
     display: none;
     flex-direction: row;
@@ -14,16 +31,42 @@
     justify-content: center; 
   }
 
-  .homepage__image{
-      border: #e7792b;
+  @include xs{
+    flex-direction: column;
+    margin: 0;
+  }
+
+  .buildingImagesContainer{
       background-color: #f3f3f3;
       width: 100%;
-      flex: 0.75;
+      flex: 1;
       display: flex;
-      img{
-        max-width: 100%;
-        max-height: 100%;
-        margin: auto;
+      flex-direction: row;
+      height: auto;
+      @include lg{
+        flex-direction: column;
+        min-height: 650px;
+      }
+
+      @include xs{
+        flex: 0;
+        width: 100%;
+      }
+
+      .carousel{
+        background-color: #e7792b;
+        width: 100%;
+        flex: 1;
+      }
+
+      .buildingInfo{
+        background-color: #3A506B;
+        width: 100%;
+        max-width: 250px;
+        @include lg{
+          max-width: none;
+          height: 200px;
+        }
       }
     }
   
@@ -31,19 +74,40 @@
       width: 100%;
       flex: 0.25;
       background-color: #f0f0f0;
-
+      max-width: 250px;
       .sidebarButton {
         background-color: #3A506B;    
-        width: 70%;
         margin: 20px auto;
         border-radius: 15px;
+        width: 70%;
         height: 55px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
         a {
           color: white;
           text-decoration: none;
-          line-height: 55px;
           font-weight: bold;
+          width: auto;
         }
+
+        @include xs{
+          margin: 0 10px;
+          height: 40px;
+          padding: 0 10px;
+        }
+
+      }
+
+      @include xs{
+        max-width: none;
+        display: flex;
+        flex-direction: row;
+        overflow-x: scroll;
+        flex: 0;
+        height: auto;
+        min-height: 70px;
+        align-items: center;
       }
 
       .sidebarButton.new {
