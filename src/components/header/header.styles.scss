@@ -1,28 +1,125 @@
-.navBar {
-    display: flex;
-    width: 100%;
-    height: 100px;
-    border-bottom: 1px solid black;
-    align-items: center;
-    
-    .Logo {
-        margin-left: 10%;
-        width: 300px;
-        a{
-            width: inherit;
-            img {
-                width: inherit;
-            }
-        }
+@mixin bellow600{
+    @media (max-width: 600px) {
+        @content;
     }
 }
 
-.Logo {
-    width: 140px;
-    a{
-        width: inherit;
-        img {
-            width: inherit;
+.headerRoot{
+    justify-content: space-between;
+    background-color: white;
+
+    .appBar{
+        background-color: #FFFFFF;
+        position: static;
+        box-shadow: 
+            0px 2px 4px -1px rgba(0,0,0,0.2), 
+            0px 4px 5px 0px rgba(0,0,0,0.14), 
+            0px 1px 10px 0px rgba(0,0,0,0.12);
+
+        .toolBarContainer{
+            justify-content: space-between;
+            color: #8c969b;
+            max-width: 1500px;
+            width: 100%;
+            margin: auto;
+            padding: 0;
+            background-color: none;
+            
+            .logoWrapper{
+                flex: 0.1;
+                .maxLogo{
+                    max-width: 100%;
+                    max-height: 100%;
+                    min-width: 150px;
+                    @include bellow600{
+                        display: none;
+                    }
+                }
+                .minLogo{
+                    display: none;
+                    width: 100%;
+                    height: auto;
+                    min-width: 70px;
+                    @include bellow600{
+                        display: block;
+                    }
+                }
+            }
+
+            .searchWrapper{
+                display: flex;
+                border-radius: 4px;
+                width: 100%;
+                flex: 0.75;
+                padding: 5px 0;
+                background-color: #f0f0f0;
+                .searchIcon{
+                    padding: 0 10px;
+                    margin: auto;
+                    @include bellow600{
+                        padding: 0;
+                    }
+                    
+                }
+
+                .inputRoot {
+                    cursor: text;
+                    display: inline-flex;
+                    position: relative;
+                    font-size: 1rem;
+                    box-sizing: border-box;
+                    align-items: center;
+                    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+                    line-height: 1.1875em;
+                    width: 100%;
+                    .inputText {
+                        color: #4f4f4f;
+                        width: 100%;
+                    }
+                }
+            }
+
+
+            .profileWrapper{
+                height: 60px;
+                display: flex;
+                align-items: center;
+                justify-content: space-evenly;
+                flex: 0.1;
+                
+                .gearButton{
+                    $gearSize: 40px;
+                    width: $gearSize;
+                    height: $gearSize;
+                    cursor: pointer;
+                    @include bellow600{
+                        $gearSize: 30px;
+                        width: $gearSize;
+                        height: $gearSize;
+                    }
+                }
+                .profileButton{
+                    $profileBtnSize: 58px;
+                    width: $profileBtnSize;
+                    height: $profileBtnSize;
+                    border-radius: 50%;
+                    background-color: #6B25A1;
+                    color: #FFFFFF;
+                    font-size: 25px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    cursor: pointer;
+                    @include bellow600{
+                        $profileBtnSize: 40px;
+                        font-size: 18px;
+                        width: $profileBtnSize;
+                        height: $profileBtnSize;
+                    }
+                }
+            }
+
+
         }
     }
 }

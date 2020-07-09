@@ -1,11 +1,11 @@
-import React, { useState, useEffect, ChangeEvent } from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux'
-import MaterialTable from 'material-table';
+// import MaterialTable from 'material-table';
 import { selectEmployeesByFloor } from '../../redux/home/home.selectors'
 import { Dispatch } from 'redux';
-import { IFilters, IHomeState, IHomeOptions, IAppState } from '../../types/AppInterfaces'
+import { IFilters, IHomeOptions, IAppState } from '../../types/AppInterfaces'
 
-import SelectButton from '../select-button/select-button';
+// import SelectButton from '../select-button/select-button';
 import Sidebar from './homepage-sidebar.component';
 import BuildingImages from "./buildingImages.component";
 import { filterLocation, fetchEmployeesStart } from '../../redux/home/home.action';
@@ -17,46 +17,46 @@ function Homepage({ filterLocation, fetchEmployeesStart, filters, employeesData 
         fetchEmployeesStart();
     }, [fetchEmployeesStart]);
 
-    const [state,] = useState<IHomeState>({
-        user: "Alfredo Sanchez",
-        comboBox: {
-            locations: {
-                MDC: {
-                    floors: {
-                        "0": {
-                            sections: ["A", "B", "C"]
-                        },
-                        "18": {
-                            sections: ["A", "B", "C"]
-                        },
-                        "24": {
-                            sections: ["A", "B", "C"]
-                        }
-                    }
-                },
-                Austin: {
-                    floors: {
-                        "0": {
-                            sections: ["A", "B", "C"]
-                        },
-                        "18": {
-                            sections: ["A", "B", "C"]
-                        },
-                        "24": {
-                            sections: ["A", "B", "C"]
-                        }
-                    }
-                }
-            }
-        }
-    })
+    // const [state,] = useState<IHomeState>({
+    //     user: "Alfredo Sanchez",
+    //     comboBox: {
+    //         locations: {
+    //             MDC: {
+    //                 floors: {
+    //                     "0": {
+    //                         sections: ["A", "B", "C"]
+    //                     },
+    //                     "18": {
+    //                         sections: ["A", "B", "C"]
+    //                     },
+    //                     "24": {
+    //                         sections: ["A", "B", "C"]
+    //                     }
+    //                 }
+    //             },
+    //             Austin: {
+    //                 floors: {
+    //                     "0": {
+    //                         sections: ["A", "B", "C"]
+    //                     },
+    //                     "18": {
+    //                         sections: ["A", "B", "C"]
+    //                     },
+    //                     "24": {
+    //                         sections: ["A", "B", "C"]
+    //                     }
+    //                 }
+    //             }
+    //         }
+    //     }
+    // })
 
-    const handleSelect = (event: ChangeEvent<HTMLSelectElement>): void => {
-        filterLocation({
-            ...filters,
-            [event.target.name]: event.target.value
-        });
-    }
+    // const handleSelect = (event: ChangeEvent<HTMLSelectElement>): void => {
+    //     filterLocation({
+    //         ...filters,
+    //         [event.target.name]: event.target.value
+    //     });
+    // }
 
     return (
         <div className="homepage-container" data-test="homepageContainer">
@@ -64,9 +64,8 @@ function Homepage({ filterLocation, fetchEmployeesStart, filters, employeesData 
             <BuildingImages/>
             {/* <div className="homepage__image">
                 <img src={`${filters.floor}/${filters.floor}-${filters.section}.png`} alt="alt" />
-            </div> */}
+            </div> 
 
-            {/*
                         <div className="homepage-filters">
                 <SelectButton data-test="locationsSelectButton" name='location' inputLabel="Locations"
                     items={Object.keys(state.comboBox.locations)} handleSelect={handleSelect} itemsSelected={filters.location} />
@@ -76,8 +75,9 @@ function Homepage({ filterLocation, fetchEmployeesStart, filters, employeesData 
                     items={state.comboBox.locations[filters.location].floors[filters.floor].sections} handleSelect={handleSelect} itemsSelected={filters.section} />
 
             </div>
+                    
             
-            <br /> <br /> <br />
+             <br /> <br /> <br />
                 <MaterialTable
                     options={{
 
