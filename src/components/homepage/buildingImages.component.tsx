@@ -1,14 +1,15 @@
 import React from "react";
+import Slider from "./slider/index.component";
+import BuildingData from "./buildingData/index.component";
 
-
-function BuildingImages() {
+function BuildingImages(props: any) {
     return (
         <div className="buildingImagesContainer">
             <div className="carousel">
-                Slider
+                <Slider building={props.building} />
             </div>
             <div className="buildingInfo">
-                Building info
+                <BuildingData building={props.building} />
             </div>
         </div>
     )
