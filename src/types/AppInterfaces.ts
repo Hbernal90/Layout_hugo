@@ -14,6 +14,16 @@ export interface IHomeReduxState {
     errorMessage?: string
 }
 
+export interface IBuildingData {
+    title?: string,
+    description?: string,
+    address?: string,
+    phone?: string,
+    totalFloors?: number,
+    totalSeats?: number,
+    availableSeats?: number
+}
+
 export interface ISidebarButtonOptions{
     title: string,
     link: string,

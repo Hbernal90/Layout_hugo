@@ -1,4 +1,7 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import axios from 'axios';
+
+import { IBuildingData } from '../../../types/AppInterfaces';
 import phoneIcon from "../../../assets/icons/phone.svg"
 import cursorIcon from "../../../assets/icons/cursor.svg"
 import layerIcon from "../../../assets/icons/layer.svg";
@@ -6,17 +9,26 @@ import charIcon from "../../../assets/icons/chair.svg";
 import workIcon from "../../../assets/icons/work.svg";
 
 
-const data = {
-    title: "Punto Sao Paulo",
+const defaultData: IBuildingData = {
     description: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Necessitatibus earum aperiam aut cupiditate impedit, minima praesentium, architecto perspiciatis corrupti soluta tempora quasi possimus? Itaque, facere? Harum provident suscipit beatae quaerat.",
-    address: "Av. de las Américas 1545, Providencia, 44630 Guadalajara, Jal.",
-    phone: "33 333 3333",
-    totalFloors: 3,
-    totalSeats: 150,
-    availableSeats: 50
+    phone: "33 333 3333"
 }
 
 function BuildingData(props: any) {
+    const [data, setData] = useState<IBuildingData>(defaultData);
+
+    useEffect(() => {
+        axios('https://localhost:44392/api/v1/Home/Buildings').then(
+            res => {
+                const responseData = res.data[0];
+                setData({ ...data, 
+                    title: responseData.name, address: responseData.description, 
+                    totalFloors: responseData.totalFloors, totalSeats: responseData.totalBusySeats,
+                    availableSeats: responseData.totalAvailableSeats })
+            }
+        );
+    }, []);
+    
     return (
         <React.Fragment>
             <span className="title">{data.title}</span>
