@@ -18,17 +18,20 @@ function BuildingData(props: any) {
     const [data, setData] = useState<IBuildingData>(defaultData);
 
     useEffect(() => {
-        axios('https://localhost:44392/api/v1/Home/Buildings').then(
+        axios('https://localhost:5001/api/v1/Home/Buildings').then(
             res => {
+                console.log(res.data);
                 const responseData = res.data[0];
-                setData({ ...data, 
-                    title: responseData.name, address: responseData.description, 
+                setData({
+                    ...data,
+                    title: responseData.name, address: responseData.description,
                     totalFloors: responseData.totalFloors, totalSeats: responseData.totalBusySeats,
-                    availableSeats: responseData.totalAvailableSeats })
+                    availableSeats: responseData.totalAvailableSeats
+                })
             }
         );
     }, []);
-    
+
     return (
         <React.Fragment>
             <span className="title">{data.title}</span>

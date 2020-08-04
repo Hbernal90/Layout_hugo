@@ -6,7 +6,7 @@ import { Dispatch } from 'redux';
 import { IFilters, IHomeOptions, IAppState } from '../../types/AppInterfaces'
 
 // import SelectButton from '../select-button/select-button';
-import Sidebar from './homepage-sidebar.component';
+import Sidebar from './sidebar/homepage-sidebar.component';
 import BuildingImages from "./buildingImages.component";
 import { filterLocation, fetchEmployeesStart } from '../../redux/home/home.action';
 

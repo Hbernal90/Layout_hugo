@@ -24,10 +24,11 @@ export interface IBuildingData {
     availableSeats?: number
 }
 
-export interface ISidebarButtonOptions{
+export interface ISidebarButtonOptions {
     title: string,
     link: string,
-    className?: string
+    className?: string,
+    floors?: { name: string, link: string }[],
 }
 
 export interface IHomeState {
@@ -163,7 +164,7 @@ export interface IDraggableElement {
     row: number,
     column: number,
     type?: string
-  }
+}
 
 export interface IAddToLayout {
     type: typeof LayoutActionTypes.ADD_TO_LAYOUT,
