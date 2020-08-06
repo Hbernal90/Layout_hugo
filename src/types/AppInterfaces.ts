@@ -27,8 +27,11 @@ export interface IBuildingData {
 export interface ISidebarButtonOptions {
     title: string,
     link: string,
+    id: number,
     className?: string,
     floors?: { name: string, link: string }[],
+    showFloors?: boolean,
+    activate?(key: number): void
 }
 
 export interface IHomeState {

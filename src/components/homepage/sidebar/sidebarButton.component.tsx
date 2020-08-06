@@ -1,45 +1,47 @@
-import React, { useState } from "react";
+import React, { useCallback, useState, useEffect } from "react";
 import { Link } from 'react-router-dom';
 import { ISidebarButtonOptions } from "../../../types/AppInterfaces";
 
-function SidebarButton({ title, link, className = "", floors = [] }: ISidebarButtonOptions) {
-
+function SidebarButton({ title, link, className = "", floors = [], showFloors = false, activate = () => { }, id }: ISidebarButtonOptions) {
     const floorButtons = floors?.map(floor =>
         <Link to={`${link}/${floor.link}`} className="floorButton">
             <span>{floor.name}</span>
         </Link>
     )
+    var fuck: any = null;
+    const [removing, setRemoving] = useState("");
 
-    const [showFloorButtons, setShowFloorButtons] = useState(false);
-    var timeout: any;
+    const activateThisButton = useCallback(() => {
+        activate(id);
+    }, [id, activate]);
 
-    function displayFloors() {
-        if (timeout == null) {
-            setShowFloorButtons(true);
-            timeout = setTimeout(() => { setShowFloorButtons(false) }, 2000);
+    const deactiveThisButton = useCallback(() => {
+        activate(-1)
+    }, [id, activate]);
+
+    const startCountdown = useCallback(() => {
+        if (fuck === null)
+            fuck = setTimeout(deactiveThisButton, 2000);
+    }, [])
+
+    const preventDeactivation = useCallback(() => {
+        if (fuck != null) {
+            clearTimeout(fuck);
+            fuck = null;
         }
-    }
-
-    function keepFloorsActive() {
-        clearTimeout(timeout);
-        timeout = null;
-    }
-
-    function hideFloors() {
-        setShowFloorButtons(false);
-    }
+    }, []);
 
     return (
         <div className="sidebarButtonWrapper">
-            <Link to={link} className={`sidebarButton ${className}`} onMouseOver={displayFloors}>
+            <Link to={link} className={`sidebarButton ${className}`} onMouseOver={activateThisButton} onMouseLeave={startCountdown}>
                 <span className="title">{title}</span>
 
             </Link>
-            <div className={`floors ${showFloorButtons ? "enable" : "disable"}`} onMouseOver={keepFloorsActive} onMouseLeave={hideFloors}>
+            <div className={`floors ${showFloors ? "enable" : "disable"}`} onMouseOver={preventDeactivation} onMouseLeave={deactiveThisButton}>
                 {floorButtons}
             </div>
         </div>
     )
 }
 
-export default SidebarButton;
+export default React.memo(SidebarButton);

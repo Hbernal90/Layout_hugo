@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import SidebarButton from "./sidebarButton.component"
 
 const sampleFloors = [
@@ -16,16 +16,48 @@ const sampleFloors = [
     }
 ]
 
+const citiesOptions = [
+    {
+        id: 1,
+        name: "Guadalajara",
+        shortName: "MDC",
+        buildingId: 1,
+    },
+    {
+        id: 2,
+        name: "Austin",
+        shortName: "AUS",
+        buildingId: 3,
+    },
+    {
+        id: 6,
+        name: "Phoenix",
+        shortName: "PHX",
+        buildingId: 5
+    },
+    {
+        id: 5,
+        name: "Dallas",
+        shortName: "DLS",
+        buildingId: 6
+    },
+    {
+        id: 8,
+        name: "New York City",
+        shortName: "NYC",
+        buildingId: 7
+    }
+];
 
 function SideBar() {
+    const [activeButton, setActiveButton] = useState(-1);
+    const buttonList = citiesOptions.map(city => (
+        <SidebarButton key={city.id} id={city.id} title={city.name} link={`/buildings/${city.buildingId}`} floors={sampleFloors} activate={setActiveButton} showFloors={activeButton === city.id} />
+    ));
     return (
         <div className="homepage-sidebar">
-            <SidebarButton title="MDC" link="/buildings/mdc" floors={sampleFloors} />
-            <SidebarButton title="PHX" link="/buildings/phx" floors={sampleFloors} />
-            <SidebarButton title="AUS" link="/buildings/aus" floors={sampleFloors} />
-            <SidebarButton title="NY" link="/buildings/ny" floors={sampleFloors} />
-            <SidebarButton title="Building A" link="/buildings/building_a" floors={sampleFloors} />
-            <SidebarButton title="NEW" link="/building/new" className="new" floors={sampleFloors} />
+            {buttonList}
+            <SidebarButton id={-1} title="NEW" link="/building/new" className="new" showFloors={false} activate={setActiveButton} />
         </div>
     )
 }

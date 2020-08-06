@@ -151,6 +151,8 @@ $screen-lg: 1100px;
           position: absolute;
           width: 200px;
           height: auto;
+          animation-name: fadeIn;
+          animation-duration: 0.4s;
           margin-left: 20px;
           left: 100%;
           background-color: rgba($color: #333, $alpha: 0.7);
@@ -195,6 +197,31 @@ $screen-lg: 1100px;
 
       .sidebarButton.new {
         background-color: #A8B85A;
+      }
+    }
+
+    @keyframes fadeIn {
+      from {
+        margin-left: 0;
+        opacity: 0;
+      }
+
+      to{
+        margin-left: 20px;
+        opacity: 1;
+      }
+    }
+
+    @keyframes fadeOut {
+      from{
+        margin-left: 20px;
+        opacity: 1;
+      }
+      to{
+        margin-left: 0;
+        opacity: 0;
+        visibility: hidden;
+        width: 0;
       }
     }
 
