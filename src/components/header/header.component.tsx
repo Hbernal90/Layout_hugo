@@ -21,21 +21,21 @@ const Header = () => {
                         </Link>
                     </div>
                     <div className="searchWrapper">
-                        <SearchIcon className="searchIcon"/>
+                        <SearchIcon className="searchIcon" />
                         <InputBase
                             placeholder="Search…"
                             classes={{
                                 root: "inputRoot",
-                                input: "in",
+                                input: "inputText",
                             }}
                             inputProps={{ 'aria-label': 'search' }}
                         />
                     </div>
                     <div className="profileWrapper">
-                            <SettingsIcon className="gearButton"/>
-                            <div className="profileButton">
-                                <span>CC</span>
-                            </div>
+                        <SettingsIcon className="gearButton" />
+                        <div className="profileButton">
+                            <span>CC</span>
+                        </div>
                     </div>
                 </Toolbar>
             </AppBar>

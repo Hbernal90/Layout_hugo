@@ -31,7 +31,10 @@ export interface ISidebarButtonOptions {
     className?: string,
     floors?: { name: string, link: string }[],
     showFloors?: boolean,
-    activate?(key: number): void
+    activate(key: number): void,
+    startCountdown?(): void,
+    preventDeactivation(): void,
+    deactivateButtons(): void
 }
 
 export interface IHomeState {

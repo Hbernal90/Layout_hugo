@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useCallback, useRef } from "react";
 import SidebarButton from "./sidebarButton.component"
+import { clear } from "console";
 
 const sampleFloors = [
     {
@@ -51,13 +52,60 @@ const citiesOptions = [
 
 function SideBar() {
     const [activeButton, setActiveButton] = useState(-1);
+    var timer: any = null;
+
+    const deactivateButtons = useCallback(() => {
+        setActiveButton(-1);
+        if (timer != null) {
+            clearTimeout(timer);
+            timer = null;
+        }
+    }, [timer])
+
+    const startCountdown = useCallback(() => {
+        if (timer === null) {
+            timer = setTimeout(deactivateButtons, 1500);
+            console.log("Deactivation in 1.5s");
+        }
+    }, [timer]);
+
+    const preventDeactivation = useCallback(() => {
+        if (timer != null) {
+            clearTimeout(timer);
+            timer = null;
+            console.log("Deactivation cancelled");
+        }
+    }, [timer])
+
+
     const buttonList = citiesOptions.map(city => (
-        <SidebarButton key={city.id} id={city.id} title={city.name} link={`/buildings/${city.buildingId}`} floors={sampleFloors} activate={setActiveButton} showFloors={activeButton === city.id} />
+        <SidebarButton
+            key={city.id}
+            id={city.id}
+            title={city.name}
+            link={`/buildings/${city.buildingId}`}
+            floors={sampleFloors}
+            activate={setActiveButton}
+            showFloors={activeButton === city.id}
+            startCountdown={startCountdown}
+            preventDeactivation={preventDeactivation}
+            deactivateButtons={deactivateButtons}
+        />
     ));
     return (
         <div className="homepage-sidebar">
             {buttonList}
-            <SidebarButton id={-1} title="NEW" link="/building/new" className="new" showFloors={false} activate={setActiveButton} />
+            <SidebarButton
+                id={-1}
+                title="NEW"
+                link="/building/new"
+                className="new"
+                showFloors={false}
+                activate={setActiveButton}
+                startCountdown={startCountdown}
+                preventDeactivation={preventDeactivation}
+                deactivateButtons={deactivateButtons}
+            />
         </div>
     )
 }
