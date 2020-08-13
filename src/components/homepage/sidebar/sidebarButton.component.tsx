@@ -1,4 +1,4 @@
-import React, { useCallback, useState, useEffect } from "react";
+import React, { useCallback } from "react";
 import { Link } from 'react-router-dom';
 import { ISidebarButtonOptions } from "../../../types/AppInterfaces";
 
@@ -17,7 +17,7 @@ function SidebarButton(props: ISidebarButtonOptions) {
     } = props;
 
     const floorButtons = floors?.map(floor =>
-        <Link to={`${link}/${floor.link}`} className="floorButton">
+        <Link key={floor.id} to={`${link}/Floors/${floor.id}`} className="floorButton">
             <span>{floor.name}</span>
         </Link>
     )
@@ -25,8 +25,7 @@ function SidebarButton(props: ISidebarButtonOptions) {
     const activateThisButton = useCallback(() => {
         preventDeactivation();
         activate(id);
-
-    }, [id, activate]);
+    }, [id, activate, preventDeactivation]);
 
 
     return (

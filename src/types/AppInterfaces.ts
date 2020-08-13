@@ -24,12 +24,25 @@ export interface IBuildingData {
     availableSeats?: number
 }
 
+export interface IFloor {
+    id: number,
+    buildingId: number,
+    name: string,
+    description?: string
+}
+export interface IBuildingButton {
+    id: number,
+    name: string,
+    shortName: string,
+    floors: IFloor[]
+}
+
 export interface ISidebarButtonOptions {
     title: string,
     link: string,
     id: number,
     className?: string,
-    floors?: { name: string, link: string }[],
+    floors?: IFloor[],
     showFloors?: boolean,
     activate(key: number): void,
     startCountdown?(): void,

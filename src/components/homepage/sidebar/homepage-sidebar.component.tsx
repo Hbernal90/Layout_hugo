@@ -1,58 +1,45 @@
-import React, { useState, useCallback, useRef } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import SidebarButton from "./sidebarButton.component"
-import { clear } from "console";
+import axios from "axios";
+import { IFloor } from "../../../types/AppInterfaces";
+import { IBuildingButton } from "../../../types/AppInterfaces";
 
-const sampleFloors = [
-    {
-        name: "Floor 18",
-        link: "floor18"
-    },
-    {
-        name: "Floor 24",
-        link: "lvl24"
-    },
-    {
-        name: "Lobby",
-        link: "lobby"
-    }
-]
-
-const citiesOptions = [
-    {
-        id: 1,
-        name: "Guadalajara",
-        shortName: "MDC",
-        buildingId: 1,
-    },
-    {
-        id: 2,
-        name: "Austin",
-        shortName: "AUS",
-        buildingId: 3,
-    },
-    {
-        id: 6,
-        name: "Phoenix",
-        shortName: "PHX",
-        buildingId: 5
-    },
-    {
-        id: 5,
-        name: "Dallas",
-        shortName: "DLS",
-        buildingId: 6
-    },
-    {
-        id: 8,
-        name: "New York City",
-        shortName: "NYC",
-        buildingId: 7
-    }
-];
 
 function SideBar() {
-    const [activeButton, setActiveButton] = useState(-1);
+    const [activeButton, setActiveButton] = useState<number>(-1);
+    const [options, setOptions] = useState<IBuildingButton[]>([]);
     var timer: any = null;
+
+    useEffect(() => {
+        (async function () {
+            axios.get("https://localhost:5001/api/v1/Home/Buildings").then(async res => {
+                const { data } = res;
+                var options: IBuildingButton[] = [];
+                for (var i in data) {
+                    const floorsResult = await axios.get("https://localhost:5001/api/v1/Buildings/" + data[i].id + "/Floors");
+                    const floorsData = floorsResult.data;
+                    var buildingFloors: IFloor[] = [];
+                    for (var f of floorsData) {
+                        buildingFloors.push({
+                            name: f.name,
+                            id: f.id,
+                            buildingId: f.buildingId,
+                            description: f.description
+                        });
+                    }
+                    options.push({
+                        id: data[i].id,
+                        name: data[i].name,
+                        shortName: data[i].shortName,
+                        floors: buildingFloors
+                    });
+                }
+                setOptions(options);
+            });
+
+        })();
+
+    }, [])
 
     const deactivateButtons = useCallback(() => {
         setActiveButton(-1);
@@ -63,30 +50,27 @@ function SideBar() {
     }, [timer])
 
     const startCountdown = useCallback(() => {
-        if (timer === null) {
+        if (timer === null)
             timer = setTimeout(deactivateButtons, 1500);
-            console.log("Deactivation in 1.5s");
-        }
     }, [timer]);
 
     const preventDeactivation = useCallback(() => {
         if (timer != null) {
             clearTimeout(timer);
             timer = null;
-            console.log("Deactivation cancelled");
         }
     }, [timer])
 
 
-    const buttonList = citiesOptions.map(city => (
+    const buttonList = options.map(option => (
         <SidebarButton
-            key={city.id}
-            id={city.id}
-            title={city.name}
-            link={`/buildings/${city.buildingId}`}
-            floors={sampleFloors}
+            key={option.id}
+            id={option.id}
+            title={option.shortName}
+            link={`/buildings/${option.id}`}
+            floors={option.floors}
             activate={setActiveButton}
-            showFloors={activeButton === city.id}
+            showFloors={activeButton === option.id}
             startCountdown={startCountdown}
             preventDeactivation={preventDeactivation}
             deactivateButtons={deactivateButtons}
