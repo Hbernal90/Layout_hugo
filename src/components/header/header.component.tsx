@@ -12,35 +12,9 @@ import axios from "axios";
 import DisplayResults from "./searchResults.component";
 import { ISearchResult } from "../../types/AppInterfaces";
 
-const dummyData: ISearchResult[] = [
-    {
-        "id": 159,
-        "projectId": 3,
-        "projectName": "Bench",
-        "name": "Jorge ",
-        "lastName": "Molina",
-        "active": true
-    },
-    {
-        "id": 172,
-        "projectId": 3,
-        "projectName": "Bench",
-        "name": "Jorge ",
-        "lastName": "Ramos",
-        "active": false
-    },
-    {
-        "id": 277,
-        "projectId": 3,
-        "projectName": "Bench",
-        "name": "Jorge ",
-        "lastName": "Garcia",
-        "active": true
-    }
-]
 
 const Header = () => {
-    const [searchResults, setSearchResults] = React.useState<ISearchResult[] | undefined>(dummyData);
+    const [searchResults, setSearchResults] = React.useState<ISearchResult[] | undefined>(undefined);
 
     const handleSearchResult = useCallback((result) => {
         const { data } = result;
