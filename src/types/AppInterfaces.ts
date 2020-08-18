@@ -36,6 +36,14 @@ export interface IBuildingButton {
     shortName: string,
     floors: IFloor[]
 }
+export interface ISearchResult {
+    id: number,
+    projectId: number,
+    projectName: string,
+    name: string,
+    lastName: string,
+    active: boolean
+}
 
 export interface ISidebarButtonOptions {
     title: string,

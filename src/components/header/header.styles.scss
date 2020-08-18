@@ -24,7 +24,6 @@
             margin: auto;
             padding: 0;
             background-color: none;
-            
             .logoWrapper{
                 flex: 0.1;
                 .maxLogo{
@@ -46,6 +45,14 @@
                 }
             }
 
+                .hide{
+                    display: none !important;
+                }
+
+                .show{
+                    display: block !important;
+                }
+
             .searchWrapper{
                 display: flex;
                 border-radius: 4px;
@@ -53,13 +60,36 @@
                 flex: 0.75;
                 padding: 5px 0;
                 background-color: #f0f0f0;
+                position: relative;
+                align-items: center;
+
+                .searchResults{
+                    width: 100%;
+                    flex: 1;
+                    position: absolute;
+                    height: auto;
+                    z-index: 8;
+                    top: 100%;
+                    background-color: #f0f0f0;
+                    box-shadow: 7px 10px 11px 1px rgba(56,56,56,1);
+                }
+
+                .dismiss{
+                    font-size: 15px;
+                    font-weight: bold;
+                    cursor: pointer;
+                    display: block;
+                    height: 100%;
+                    margin-right: 10px;
+                    user-select: none;
+                }
+
                 .searchIcon{
                     padding: 0 10px;
                     margin: auto;
                     @include bellow600{
                         padding: 0;
                     }
-                    
                 }
 
                 .inputRoot {
@@ -78,7 +108,6 @@
                     }
                 }
             }
-
 
             .profileWrapper{
                 height: 60px;
@@ -122,4 +151,5 @@
 
         }
     }
+
 }

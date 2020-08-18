@@ -1,0 +1,48 @@
+.resultContainer{
+    margin: 10px 0;
+    height: auto;
+    max-height: 330px;
+    overflow-y: scroll;
+    .itemResult{
+        text-decoration: none;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        font-size: 16px;
+        padding: 2px 0;
+        cursor: pointer;
+        .consultantName{
+            color: #555555;
+            flex: 0.5;
+        }
+        .consultantProject{
+            color: #000000;
+            font-weight: bold;
+            font-style: italic;
+        }
+        
+        .statusCircle{
+            width: 10px;
+            height: 10px;
+            border-radius: 5px;
+        }
+
+        .statusCircle.active{
+            background-color: #268741;
+        }
+
+        .statusCircle.inactive{
+            background-color: #AF1515;
+        }
+        &:hover{
+            background-color: #454545;
+            .consultantName, .consultantProject{
+                color: white;
+            }
+        }
+    }
+}
+
+.noResults{
+    font-size: 14px;
+}
