@@ -4,14 +4,14 @@ import { ISearchResult } from "../../types/AppInterfaces";
 import { Link } from "react-router-dom";
 
 function Many(data: ISearchResult[]) {
-    const x = data.map(item =>
+    const consultantList = data.map(item =>
         <Link to={"employee/" + item.id} className="itemResult" key={item.id}>
             <span className="consultantName">{item.name} {item.lastName}</span>
             <span className="consultantProject">{item.projectName}</span>
             <span className={"statusCircle  " + (item.active ? "active" : "inactive")} />
         </Link>
     );
-    return <div className="resultContainer">{x}</div>
+    return <div className="resultContainer">{consultantList}</div>
 }
 
 function Empty() {
