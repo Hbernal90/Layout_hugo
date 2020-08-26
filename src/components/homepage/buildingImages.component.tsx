@@ -9,7 +9,7 @@ function BuildingImages(props: any) {
                 <Slider building={props.building} />
             </div>
             <div className="buildingInfo">
-                <BuildingData building={props.building} />
+                <BuildingData building={props.activeBuilding} />
             </div>
         </div>
     )

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux'
 // import MaterialTable from 'material-table';
 import { selectEmployeesByFloor } from '../../redux/home/home.selectors'
@@ -13,14 +13,14 @@ import { filterLocation, fetchEmployeesStart } from '../../redux/home/home.actio
 import './homepage.styles.scss';
 
 function Homepage({ filterLocation, fetchEmployeesStart, filters, employeesData }: IHomeOptions) {
-    useEffect(() => {
-        fetchEmployeesStart();
-    }, [fetchEmployeesStart]);
-
+    // useEffect(() => {
+    //     fetchEmployeesStart();
+    // }, [fetchEmployeesStart]);
+    const [activeBuilding, setActiveBuilding] = useState<number>(1);    // Default = MDC
     return (
         <div className="homepage-container" data-test="homepageContainer">
-            <Sidebar />
-            <BuildingImages />
+            <Sidebar setActiveBuilding={setActiveBuilding}/>
+            <BuildingImages activeBuilding={activeBuilding}/>
         </div>
     )
 }

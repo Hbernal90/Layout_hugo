@@ -13,9 +13,12 @@ function SidebarButton(props: ISidebarButtonOptions) {
         activate,
         startCountdown,
         preventDeactivation,
-        deactivateButtons
+        deactivateButtons,
+        callbackAction
     } = props;
-
+    const onClick = useCallback(() => {
+        callbackAction(id);
+    }, [id]);
     const floorButtons = floors?.map(floor =>
         <Link key={floor.id} to={`${link}/Floors/${floor.id}`} className="floorButton">
             <span>{floor.name}</span>
@@ -30,10 +33,9 @@ function SidebarButton(props: ISidebarButtonOptions) {
 
     return (
         <div className="sidebarButtonWrapper">
-            <Link to={link} className={`sidebarButton ${className}`} onMouseEnter={activateThisButton} onMouseLeave={startCountdown}>
+            <div className={`sidebarButton ${className}`} onMouseEnter={activateThisButton} onMouseLeave={startCountdown} onClick={onClick}>
                 <span className="title">{title}</span>
-
-            </Link>
+            </div>
             <div className={`floors ${showFloors ? "enable" : "disable"}`} onMouseOver={preventDeactivation} onMouseLeave={deactivateButtons}>
                 {floorButtons}
             </div>

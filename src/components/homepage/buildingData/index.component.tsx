@@ -9,28 +9,25 @@ import charIcon from "../../../assets/icons/chair.svg";
 import workIcon from "../../../assets/icons/work.svg";
 
 
-const defaultData: IBuildingData = {
-    description: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Necessitatibus earum aperiam aut cupiditate impedit, minima praesentium, architecto perspiciatis corrupti soluta tempora quasi possimus? Itaque, facere? Harum provident suscipit beatae quaerat.",
-    phone: "33 333 3333"
-}
-
 function BuildingData(props: any) {
-    const [data, setData] = useState<IBuildingData>(defaultData);
+    const [data, setData] = useState<IBuildingData>({});
 
     useEffect(() => {
-        axios('https://localhost:5001/api/v1/Home/Buildings').then(
+        axios('https://localhost:5001/api/v1/Home/Buildings/'+props.building).then(
             res => {
-                console.log(res.data);
-                const responseData = res.data[0];
+                const responseData = res.data;
                 setData({
-                    ...data,
-                    title: responseData.name, address: responseData.description,
-                    totalFloors: responseData.totalFloors, totalSeats: responseData.totalBusySeats,
+                    title: responseData.name, 
+                    description: responseData.description,
+                    address: responseData.address,
+                    phone: responseData.phoneNumber1,
+                    totalFloors: responseData.totalFloors, 
+                    totalSeats: parseInt(responseData.totalBusySeats) + parseInt(responseData.totalAvailableSeats),
                     availableSeats: responseData.totalAvailableSeats
-                })
+                });
             }
         );
-    }, []);
+    }, [props.building]);
 
     return (
         <React.Fragment>

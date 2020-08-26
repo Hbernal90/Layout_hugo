@@ -5,11 +5,11 @@ import { IFloor } from "../../../types/AppInterfaces";
 import { IBuildingButton } from "../../../types/AppInterfaces";
 
 
-function SideBar() {
+function SideBar({setActiveBuilding} : any) {
     const [activeButton, setActiveButton] = useState<number>(-1);
     const [options, setOptions] = useState<IBuildingButton[]>([]);
     var timer: any = null;
-
+    
     useEffect(() => {
         (async function () {
             axios.get("https://localhost:5001/api/v1/Home/Buildings").then(async res => {
@@ -31,7 +31,8 @@ function SideBar() {
                         id: data[i].id,
                         name: data[i].name,
                         shortName: data[i].shortName,
-                        floors: buildingFloors
+                        floors: buildingFloors,
+                        setActiveBuilding: setActiveBuilding
                     });
                 }
                 setOptions(options);
@@ -61,6 +62,10 @@ function SideBar() {
         }
     }, [timer])
 
+    const startNewBuildingWizard = useCallback(() => {
+        alert("New Building wizard, coming soon");
+    }, []);
+
 
     const buttonList = options.map(option => (
         <SidebarButton
@@ -74,6 +79,7 @@ function SideBar() {
             startCountdown={startCountdown}
             preventDeactivation={preventDeactivation}
             deactivateButtons={deactivateButtons}
+            callbackAction={option.setActiveBuilding}
         />
     ));
     return (
@@ -84,11 +90,11 @@ function SideBar() {
                 title="NEW"
                 link="/building/new"
                 className="new"
-                showFloors={false}
                 activate={setActiveButton}
                 startCountdown={startCountdown}
                 preventDeactivation={preventDeactivation}
                 deactivateButtons={deactivateButtons}
+                callbackAction={startNewBuildingWizard}
             />
         </div>
     )

@@ -34,7 +34,8 @@ export interface IBuildingButton {
     id: number,
     name: string,
     shortName: string,
-    floors: IFloor[]
+    floors: IFloor[],
+    setActiveBuilding(): void
 }
 export interface ISearchResult {
     id: number,
@@ -55,7 +56,8 @@ export interface ISidebarButtonOptions {
     activate(key: number): void,
     startCountdown?(): void,
     preventDeactivation(): void,
-    deactivateButtons(): void
+    deactivateButtons(): void,
+    callbackAction(arg0?: number): void
 }
 
 export interface IHomeState {
