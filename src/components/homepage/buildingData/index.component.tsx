@@ -41,6 +41,10 @@ function BuildingData(props: any) {
                 <div className="iconAndText"><img src={workIcon} alt="" /><span>Total seats: {data.totalSeats}</span></div>
                 <div className="iconAndText"><img src={charIcon} alt="" /><span>Available seats: {data.availableSeats}</span></div>
             </div>
+            <div className="showMoreWrapper">
+                <span className="showMoreButton">Show More</span>
+            </div>
+                    
         </React.Fragment>
     )
 }
