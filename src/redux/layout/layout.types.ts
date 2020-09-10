@@ -1,6 +1,0 @@
-export enum LayoutActionTypes {
-    ADD_TO_LAYOUT = 'ADD_TO_LAYOUT',
-    REMOVE_FROM_LAYOUT = 'REMOVE_FROM_LAYOUT',
-    ADD_CHAIR = 'ADD_CHAIR',
-    REMOVE_CHAIR = 'REMOVE_CHAIR'
-}
