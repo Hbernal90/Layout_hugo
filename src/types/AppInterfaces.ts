@@ -46,6 +46,10 @@ export interface ISearchResult {
     active: boolean
 }
 
+export interface IResultSetOptions{
+    data: Record<string, ISearchResult[]>
+}
+
 export interface ISidebarButtonOptions {
     title: string,
     link: string,

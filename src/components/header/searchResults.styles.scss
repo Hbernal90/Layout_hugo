@@ -1,8 +1,11 @@
 .resultContainer{
     margin: 10px 0;
     height: auto;
-    max-height: 330px;
-    overflow-y: scroll;
+    .filter{
+        font-size: 15px;
+        font-weight: bold;
+        color: #000;
+    }
     .itemResult{
         text-decoration: none;
         display: flex;
@@ -41,8 +44,12 @@
             }
         }
     }
-}
-
-.noResults{
-    font-size: 14px;
+    
+    & .noResults{
+        font-size: 14px;
+    }
+    & .error {
+        font-size: 14px;
+        color: #AF1515;
+    }
 }

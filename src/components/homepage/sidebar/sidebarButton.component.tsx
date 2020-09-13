@@ -35,10 +35,13 @@ function SidebarButton(props: ISidebarButtonOptions) {
         <div className="sidebarButtonWrapper">
             <div className={`sidebarButton ${className}`} onMouseEnter={activateThisButton} onMouseLeave={startCountdown} onClick={onClick}>
                 <span className="title">{title}</span>
+
             </div>
-            <div className={`floors ${showFloors ? "enable" : "disable"}`} onMouseOver={preventDeactivation} onMouseLeave={deactivateButtons}>
-                {floorButtons}
-            </div>
+            {floorButtons.length > 0 && 
+                <div className={`floors ${showFloors ? "enable" : "disable"}`} onMouseOver={preventDeactivation} onMouseLeave={deactivateButtons}>
+                    {floorButtons}
+                </div>
+            }
         </div>
     )
 }
