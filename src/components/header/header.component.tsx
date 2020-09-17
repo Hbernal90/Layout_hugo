@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import InputBase from '@material-ui/core/InputBase';
@@ -14,12 +14,7 @@ import { ISearchResult } from "../../types/AppInterfaces";
 
 
 const Header = () => {
-    const [searchResults, setSearchResults] = React.useState<ISearchResult[] | undefined>(undefined);
-
-    const handleSearchResult = useCallback((result) => {
-        const { data } = result;
-        setSearchResults(data);
-    }, []);
+    const [searchResults, setSearchResults] = useState<Record<string, ISearchResult[]>>();
 
     const clearSearch = useCallback(() => {
         setSearchResults(undefined);
@@ -32,7 +27,7 @@ const Header = () => {
             clearSearch();
     }, [clearSearch]);
 
-    const fetchResults = useCallback((firstName = undefined, lastName = undefined, project = undefined) => {
+    const fetchResults = useCallback(async (firstName = undefined, lastName = undefined, project = undefined) => {
         var baseRequest = "https://localhost:5001/api/v1/Employees?";
         if (firstName != undefined)
             baseRequest += "&name=" + firstName;
@@ -40,18 +35,43 @@ const Header = () => {
             baseRequest += "&lastName=" + lastName;
         if (project != undefined)
             baseRequest += "&projectName=" + project;
-        axios.get(baseRequest).then(handleSearchResult).catch(console.log);
+        try{
+            const res = await axios.get(baseRequest);
+            return res.data;
+        } catch(err){
+            console.error(err.message);
+            return undefined;
+        };
     }, []);
 
-    const beginSearch = useCallback((e) => {
+    const beginSearch = useCallback(async (e) => {
         var node = document.querySelector<HTMLInputElement>("input.inputText[name='searchTerm']");
         var searchTerm = node?.value;
-        // Solución muy cavernícola: input => <NOMBRE><ESPACIO><APELLIDO>
+
         const arr = searchTerm?.split(" ") || [];
         const firstName = arr[0];
         const lastName = arr[1];
         e.preventDefault();
-        fetchResults(firstName, lastName);
+        var resultSet: Record<string, ISearchResult[]> = {};
+        const resultsByName = await fetchResults(firstName, lastName);
+        var totalResults = 0;
+        const resultsByProject = await fetchResults(undefined, undefined, searchTerm); // using the whole input as project
+        if(!resultsByName && !resultsByProject){ // every result is null
+            resultSet["__INVALID__"] = [];
+            setSearchResults(resultSet);
+        }
+        if(resultsByName.length){
+            resultSet["Full Name"] = resultsByName;
+            totalResults += resultsByName.length;
+        }
+        if(resultsByProject.length){
+            resultSet["Project"] = resultsByProject;
+            totalResults += resultsByProject.length;
+        }
+        if(!totalResults)
+            resultSet["__EMPTY__"] = [];
+
+        setSearchResults(resultSet);
     }, []);
 
     return (
@@ -66,7 +86,9 @@ const Header = () => {
                     </div>
                     <form className="searchWrapper" onSubmit={beginSearch}>
                         <div className={"searchResults " + (searchResults ? "show" : "hide")}>
-                            <DisplayResults data={searchResults} />
+                            {searchResults && 
+                                <DisplayResults data={searchResults} />
+                            }
                         </div>
                         <SearchIcon className="searchIcon" />
                         <InputBase

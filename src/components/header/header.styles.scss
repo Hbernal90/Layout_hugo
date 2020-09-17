@@ -72,6 +72,8 @@
                     top: 100%;
                     background-color: #f0f0f0;
                     box-shadow: 7px 10px 11px 1px rgba(56,56,56,1);
+                    overflow-y: scroll;
+                    max-height: 330px;
                 }
 
                 .dismiss{

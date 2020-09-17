@@ -1,9 +1,9 @@
 import React from "react";
 import "./searchResults.styles.scss"
-import { ISearchResult } from "../../types/AppInterfaces";
+import { ISearchResult, IResultSetOptions} from "../../types/AppInterfaces";
 import { Link } from "react-router-dom";
 
-function Many(data: ISearchResult[]) {
+function Many(data: ISearchResult[], filter: string) {
     const consultantList = data.map(item =>
         <Link to={"employee/" + item.id} className="itemResult" key={item.id}>
             <span className="consultantName">{item.name} {item.lastName}</span>
@@ -11,19 +11,37 @@ function Many(data: ISearchResult[]) {
             <span className={"statusCircle  " + (item.active ? "active" : "inactive")} />
         </Link>
     );
-    return <div className="resultContainer">{consultantList}</div>
+    return (
+        <div className="resultContainer" key={filter}>
+            <span className="filter">{filter}</span>
+            {consultantList}
+        </div>
+    )
 }
 
-function Empty() {
-    return <div className="resultContainer noResults">No results from this search</div>
-}
+const Empty = () => <div className="resultContainer noResults">No results from this search</div> 
 
-function DisplayResults(props: any) {
+const Invalid = () => <div className="resultContainer error">An error occurred, try again</div>
+
+function DisplayResults(props: IResultSetOptions) {
     const { data } = props;
-    if (!data || data.length == 0)
+    if(!data)
         return Empty();
-    else
-        return Many(data as ISearchResult[]);
+    if(data["__INVALID__"])
+        return Invalid();
+    else if(data["__EMPTY__"])
+        return Empty();
+    
+    const filterList = Object.keys(data);
+    return (
+        <React.Fragment>
+            {
+                filterList.map( filter => {
+                    return Many(data[filter], filter);
+                })
+            }
+        </React.Fragment>
+    );    
 }
 
 export default DisplayResults;

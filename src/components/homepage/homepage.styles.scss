@@ -190,6 +190,14 @@ $screen-lg: 1100px;
           align-items: center;
           justify-content: center;
           flex-direction: column;
+          z-index: 10;
+          @include xs{
+            border: 1px solid red;
+            left: 0;
+            top: 100%;
+            margin-left: 0;
+          }
+
           .floorButton{
             background-color: #f3f3f3;
             height: 35px;
@@ -218,7 +226,7 @@ $screen-lg: 1100px;
         flex-direction: row;
         overflow-x: scroll;
         flex: 0;
-        height: auto;
+        height: 80px;
         min-height: 70px;
         align-items: center;
       }
