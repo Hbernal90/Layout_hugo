@@ -59,6 +59,7 @@ const Header = () => {
         if(!resultsByName && !resultsByProject){ // every result is null
             resultSet["__INVALID__"] = [];
             setSearchResults(resultSet);
+            return;
         }
         if(resultsByName.length){
             resultSet["Full Name"] = resultsByName;
